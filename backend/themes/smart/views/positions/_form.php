@@ -17,20 +17,18 @@ use kartik\widgets\SwitchInput;
     <div class="box-body">
 
         <?php
-        $items = array_keys(Yii::$app->modules);
-        foreach ($items as $key => $value) {
-            $newItems[$key]['id'] = $key;
-            $newItems[$key]['module_name'] = $value;
+        if ($model->moduleslist) {
+            $newItems = \yii\helpers\ArrayHelper::map($model->moduleslist, 'module_name', 'module_name');
+        } else {
+            $newItems = '';
         }
-
-        $newItems = \yii\helpers\ArrayHelper::map($newItems, 'module_name', 'module_name');
         ?>
 
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPositions']]); ?>
         <?php
         echo $form->field($model, 'name');
         echo $form->field($model, 'module_name')->dropDownList($newItems);
-        echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []); 
+        echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []);
         ?> 
 
         <div class="form-group">

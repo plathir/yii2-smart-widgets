@@ -47,7 +47,7 @@ class Widgets_s extends Widgets {
         ]);
 
          $query->andFilterWhere(['like', 'widget_type', $this->widget_type])
-               ->andFilterWhere(['like', 'position', $this->position])
+               ->andFilterWhere(['=', 'position', $this->position])
                ->andFilterWhere(['like', 'description', $this->description]);
                  
         

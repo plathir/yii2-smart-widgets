@@ -15,14 +15,6 @@ use \yii\helpers\ArrayHelper;
     </div><!-- /.box-header -->
     <div class="box-body">
         <?= Html::a('Create new Type', ['create'], ['class' => 'btn btn-success']) ?>
-
-        <?php
-        $items = array_keys(Yii::$app->modules);
-        foreach ($items as $key => $value) {
-            $newItems[$key]['id'] = $key;
-            $newItems[$key]['module_name'] = $value;
-        }
-        ?>
         <?=
         GridView::widget([
             'dataProvider' => $dataProvider,
@@ -33,9 +25,14 @@ use \yii\helpers\ArrayHelper;
                     'attribute' => 'id',
                 ],
                 [
+                    'attribute' => 'environment',
+                    'format' => 'html',
+                    'filter' => Html::activeDropDownList($searchModel, 'environment', ['backend' => 'backend', 'frontend' => 'frontend'], ['class' => 'form-control', 'prompt' => 'Select...'])
+                ],
+                [
                     'attribute' => 'module_name',
                     'format' => 'html',
-                    'filter' => Html::activeDropDownList($searchModel,'module_name', ArrayHelper::map($newItems, 'module_name', 'module_name'), ['class' => 'form-control', 'prompt' => 'Select...'])
+                    'filter' => Html::activeDropDownList($searchModel, 'module_name', ArrayHelper::map($searchModel->moduleslist, 'module_name', 'module_name'), ['class' => 'form-control', 'prompt' => 'Select...'])
                 ],
                 [
                     'attribute' => 'widget_name',
@@ -43,10 +40,9 @@ use \yii\helpers\ArrayHelper;
                 [
                     'attribute' => 'widget_class',
                 ],
-                [
-                    'attribute' => 'description',
-                ],
-                ['class' => 'yii\grid\ActionColumn']
+                ['class' => 'yii\grid\ActionColumn',
+                    'contentOptions' => ['style' => 'min-width: 70px;']
+                ]
             ]
         ]);
         ?>

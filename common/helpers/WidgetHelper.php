@@ -4,6 +4,7 @@ namespace plathir\widgets\common\helpers;
 
 use plathir\widgets\backend\models\Positions;
 use plathir\widgets\backend\models\PositionsSortOrder;
+use Yii;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -31,6 +32,30 @@ class WidgetHelper {
         } else {
             return '';
         }
+    }
+
+    public function getListOfModules() {
+        // Get items from frontend
+        $items_frontend = array_keys(Yii::$app->modules['frontendconfig']['modules']);
+
+        $key_h = 0;
+        foreach ($items_frontend as $key => $value) {
+            if ($value != 'gii' && $value != 'debug') {
+                $key_h = $key_h + 1;
+                $newItems[$key_h]['id'] = $key_h;
+                $newItems[$key_h]['module_name'] = 'frontend-' . $value;
+            }
+        }
+
+        $items = array_keys(Yii::$app->modules);
+        foreach ($items as $key => $value) {
+            if ($value != 'frontendconfig' && $value != 'gii' && $value != 'debug') {
+                $key_h = $key_h + 1;
+                $newItems[$key_h]['id'] = $key_h;
+                $newItems[$key_h]['module_name'] = 'backend-' . $value;
+            }
+        }
+        return $newItems;
     }
 
 }

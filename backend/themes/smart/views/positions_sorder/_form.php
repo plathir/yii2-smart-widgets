@@ -24,7 +24,7 @@ use kartik\sortinput\SortableInput;
             // in this place find description of widget
             // ...
             $widget = plathir\widgets\backend\models\Widgets::findOne($item);
-            $newarray[$item]['content'] = '<strong>'. $item.'. '. $widget->name .'</strong>';
+            $newarray[$item]['content'] = '<strong>'. $item.'. '. $widget->name .'</strong>.<br>'.$widget->publishbadge;
         }
 
         echo SortableInput::widget([

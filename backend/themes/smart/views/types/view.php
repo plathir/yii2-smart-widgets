@@ -2,26 +2,21 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use plathir\upload\ListFilesWidget;
-use yii\bootstrap\Tabs;
-use plathir\smartblog\common\widgets\TagsWidget;
-use \plathir\smartblog\common\widgets\SimilarPostsWidget;
-use \plathir\smartblog\common\widgets\GalleryWidget;
-use kartik\widgets\StarRating;
-use \plathir\smartblog\common\widgets\RatingWidget;
+use yii\grid\GridView;
+use yii\data\ArrayDataProvider;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Types', 'url' => ['index']];
+$this->title = $model->id. '-'. $model->widget_name ;
+$this->params['breadcrumbs'][] = ['label' => 'Widget Types', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title"><?= 'View Type :' . Html::encode($this->title) ?></h3>
+        <h3 class="box-title"><?= 'View Widget Type :' . Html::encode($this->title) ?></h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -29,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div><!-- /.box-header -->
     <div class="box-body">
-        <p>
+        <p>           
             <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
             <?=
             Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -54,6 +49,54 @@ $this->params['breadcrumbs'][] = $this->title;
                 'description'
             ]
         ]);
+
+        $provider = new ArrayDataProvider([
+            'allModels' => $model->widgets,
+            'sort' => [
+                'attributes' => ['id', 'name','positiondescr', 'publishbadge'],
+            ],
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
         ?>
+        <br>
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?= 'Widgets with type : '. $model->widget_name ?></h3>
+
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <?php
+                echo GridView::widget([
+                    'dataProvider' => $provider,
+                    'tableOptions' => ['class' => 'table table-responsive table no-margin'],
+                    'columns' => [
+                        'id',
+                        [
+                          'attribute' => 'name',
+                          'value' => function($model) {
+                              return  Html::a($model->name, ['/widgets/default/view', 'id' => $model->id]);
+                          },
+                          'format' =>'html',
+                            
+                        ],
+                        [
+                          'attribute' => 'positiondescr',
+                          'value' => function($model) {
+                              return  Html::a($model->positiondescr, ['/widgets/positions/view', 'id' => $model->position]);
+                          },
+                          'format' =>'html',
+                            
+                        ],
+                                 
+                        'publishbadge:html',
+                ]]);
+                ?>
+
+
+            </div>
+        </div>
+
     </div>
 </div>

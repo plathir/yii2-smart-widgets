@@ -85,5 +85,11 @@ class DefaultController extends Controller {
         }
     }
     
+        public function getModuleslist() {
+
+        $newItems = \plathir\widgets\common\helpers\WidgetHelper::getListOfModules();
+
+        return $newItems;
+    }
     
 }

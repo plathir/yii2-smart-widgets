@@ -16,13 +16,17 @@ use yii\widgets\ActiveForm;
     </div><!-- /.box-header -->
     <div class="box-body">
         <?php
-        $items = array_keys(Yii::$app->modules);
-        foreach ($items as $key => $value) {
-            $newItems[$key]['id'] = $key;
-            $newItems[$key]['module_name'] = $value;
-        }
+        // Get items from frontend
+//        $items_frontend = array_keys(Yii::$app->modules['frontendconfig']['modules']);
+//     //   print_r($items_frontend);
+//      //  die();
+//        $items = array_keys(Yii::$app->modules);
+//        foreach ($items as $key => $value) {
+//            $newItems[$key]['id'] = $key;
+//            $newItems[$key]['module_name'] = $value;
+//        }
 
-        $newItems = \yii\helpers\ArrayHelper::map($newItems, 'module_name', 'module_name');
+        $newItems = \yii\helpers\ArrayHelper::map($model->moduleslist, 'module_name', 'module_name');
         ?>
 
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdTypes']]); ?>

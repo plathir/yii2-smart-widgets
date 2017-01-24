@@ -7,6 +7,8 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use plathir\widgets\backend\models\PositionsSortOrder;
 use plathir\widgets\common\helpers\PositionHelper;
+use plathir\widgets\backend\models\WidgetsTypes;
+use plathir\widgets\backend\models\Positions;
 
 class Widgets extends \yii\db\ActiveRecord {
 
@@ -37,6 +39,8 @@ class Widgets extends \yii\db\ActiveRecord {
             [['id', 'widget_type', 'publish'], 'integer'],
             [['name', 'description', 'position', 'config', 'rules'], 'string'],
             [['created_at', 'updated_at'], 'integer'],
+            [['widgettypedescr'], 'string'],
+            [['positiondescr'], 'string'],
         ];
     }
 
@@ -47,6 +51,9 @@ class Widgets extends \yii\db\ActiveRecord {
         return [
             'id' => Yii::t('app', 'ID'),
             'description' => Yii::t('app', 'Description'),
+            'widgettypedescr' => Yii::t('app', 'Widget Type'),
+            'positiondescr' => Yii::t('app', 'Position'),
+            'publishbadge' => Yii::t('app', 'Publish'),
         ];
     }
 
@@ -75,4 +82,37 @@ class Widgets extends \yii\db\ActiveRecord {
         PositionHelper::BuildPosition($this->position);
     }
 
+    public function getWidgettypedescr() {
+        $type = WidgetsTypes::findOne($this->widget_type);
+        if ($type) {
+            return $type->widget_name;
+        } else {
+            return null;
+        }
+    }
+
+    public function getPositiondescr() {
+        $position = Positions::findOne($this->position);
+        if ($position) {
+            return $position->name;
+        } else {
+            return null;
+        }
+    }
+       public function getPublishbadge() {
+           $badge = '';
+           switch ($this->publish) {
+               case 0:
+                   $badge = '<span class="label label-danger">Unpublished</span>';
+                   break;
+               case 1:
+                    $badge = '<span class="label label-success">Published</span>';
+                   break;
+               default:
+                   break;
+           }
+
+        return $badge;
+        
+       }
 }

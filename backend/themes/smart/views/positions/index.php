@@ -7,7 +7,7 @@ use \yii\helpers\ArrayHelper;
 
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title">List of Widgets Types</h3>
+        <h3 class="box-title">List of Positions</h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -16,14 +16,6 @@ use \yii\helpers\ArrayHelper;
     <div class="box-body">
         <?= Html::a('Create new Position', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Rebuild Sort Order', ['rebuild'], ['class' => 'btn btn-success']) ?>
-
-        <?php
-        $items = array_keys(Yii::$app->modules);
-        foreach ($items as $key => $value) {
-            $newItems[$key]['id'] = $key;
-            $newItems[$key]['module_name'] = $value;
-        }
-        ?>
 
         <?=
         GridView::widget([
@@ -38,14 +30,20 @@ use \yii\helpers\ArrayHelper;
                     'attribute' => 'name',
                 ],
                 [
+                    'attribute' => 'environment',
+                    'format' => 'html',
+                    'filter' => Html::activeDropDownList($searchModel, 'environment', ['backend' => 'backend', 'frontend' => 'frontend'], ['class' => 'form-control', 'prompt' => 'Select...'])
+                ],
+                [
                     'attribute' => 'module_name',
                     'format' => 'html',
-                    'filter' => Html::activeDropDownList($searchModel, 'module_name', ArrayHelper::map($newItems, 'module_name', 'module_name'), ['class' => 'form-control', 'prompt' => 'Select...'])
+                    'filter' => Html::activeDropDownList($searchModel, 'module_name', ArrayHelper::map($searchModel->moduleslist, 'module_name', 'module_name'), ['class' => 'form-control', 'prompt' => 'Select...'])
                 ],
                 [
                     'attribute' => 'publish',
                     'value' => function($model, $key, $index, $widget) {
-                        return $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>';
+                      return $model->publishbadge;
+                      //  return $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>';
                     },
                     'format' => 'html',
                     'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'publish', ['0' => 'Unpublished', '1' => 'Published'], ['class' => 'form-control', 'prompt' => 'Select...']),
@@ -53,12 +51,14 @@ use \yii\helpers\ArrayHelper;
                 ],
                 [
                     'class' => 'yii\grid\ActionColumn',
+                     'contentOptions' => ['style' => 'min-width: 80px;'],
                     'template' => '{my_button}',
                     'buttons' => [
                         'my_button' => function ($url, $model, $key) {
                             return Html::a('Sort Order', ['positions_sorder/update', 'id' => $model->id]);
                         },
-                            ]
+                            ],
+                               
                         ],
                         [
                             'class' => 'yii\grid\ActionColumn',
@@ -69,7 +69,9 @@ use \yii\helpers\ArrayHelper;
                                 },
                                     ]
                                 ],
-                                ['class' => 'yii\grid\ActionColumn']
+                                ['class' => 'yii\grid\ActionColumn',
+                                    'contentOptions' => ['style' => 'min-width: 70px;']
+                                ]
                             ]
                         ]);
                         ?>

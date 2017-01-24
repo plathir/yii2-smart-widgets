@@ -2,18 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use plathir\upload\ListFilesWidget;
-use yii\bootstrap\Tabs;
-use plathir\smartblog\common\widgets\TagsWidget;
-use \plathir\smartblog\common\widgets\SimilarPostsWidget;
-use \plathir\smartblog\common\widgets\GalleryWidget;
-use kartik\widgets\StarRating;
-use \plathir\smartblog\common\widgets\RatingWidget;
+use yii\grid\GridView;
+use yii\data\ArrayDataProvider;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
 
-$this->title = $model->id;
+$this->title = $model->id.'-'.$model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Positions', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box-body">
         <p>
             <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+
             <?=
             Html::a('Delete', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
@@ -40,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]);
             ?>
+           <?= Html::a('Sort Order', ['/widgets/positions_sorder/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         </p>
 
         <?=
@@ -49,8 +46,58 @@ $this->params['breadcrumbs'][] = $this->title;
             'attributes' => [
                 'id',
                 'name',
+                'environment',
+                'publishbadge:html'
             ]
         ]);
+            
+
+        $provider = new ArrayDataProvider([
+            'allModels' => $model->widgets,
+            'sort' => [
+                'attributes' => ['id', 'name','positiondescr', 'publishbadge'],
+            ],
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
         ?>
+        <br>
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <h3 class="box-title"><?= 'Widgets with position : '. $model->name ?></h3>
+
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <?php
+                echo GridView::widget([
+                    'dataProvider' => $provider,
+                    'tableOptions' => ['class' => 'table table-responsive table no-margin'],
+                    'columns' => [
+                        'id',
+                        [
+                          'attribute' => 'name',
+                          'value' => function($model) {
+                              return  Html::a($model->name, ['/widgets/default/view', 'id' => $model->id]);
+                          },
+                          'format' =>'html',
+                            
+                        ],
+                        [
+                          'attribute' => 'widgettypedescr',
+                          'value' => function($model) {
+                              return  Html::a($model->widgettypedescr, ['/widgets/types/view', 'id' => $model->widget_type]);
+                          },
+                          'format' =>'html',
+                            
+                        ],
+                                 
+                        'publishbadge:html',
+                ]]);
+                ?>
+
+
+            </div>
+        </div>            
     </div>
 </div>

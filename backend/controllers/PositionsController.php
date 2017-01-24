@@ -28,6 +28,7 @@ class PositionsController extends Controller {
     }
 
     public function actionIndex() {
+        \yii\helpers\Url::remember();
         $searchModel = new Positions_s();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -64,6 +65,7 @@ class PositionsController extends Controller {
     }
 
     public function actionView($id) {
+        \yii\helpers\Url::remember();
         $model = $this->findModel($id);
 
         return $this->render('view', [

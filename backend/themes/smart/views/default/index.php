@@ -56,17 +56,15 @@ use kartik\datecontrol\DateControl;
                     ],
                     [
                         'attribute' => 'position',
-                            'value' => function($model, $key, $index, $widget) {
+                        'value' => function($model, $key, $index, $widget) {
                             return plathir\widgets\backend\models\Positions::findOne($model->position)->name;
                         },
-
                         'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'position', \yii\helpers\ArrayHelper::map(plathir\widgets\backend\models\Positions::find()->all(), 'id', 'name'), ['class' => 'form-control', 'prompt' => 'Select...']),
-                       
                     ],
                     [
                         'attribute' => 'publish',
                         'value' => function($model, $key, $index, $widget) {
-                            return $model->publish == true ? '<span class="label label-success">Published</span>' : '<span class="label label-danger">Unpublished</span>';
+                            return $model->publishbadge;
                         },
                         'format' => 'html',
                         'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'publish', ['0' => 'Unpublished', '1' => 'Published'], ['class' => 'form-control', 'prompt' => 'Select...']),
@@ -104,7 +102,9 @@ use kartik\datecontrol\DateControl;
                         ]),
                         'contentOptions' => ['style' => 'width: 12%;']
                     ],
-                    ['class' => 'yii\grid\ActionColumn']
+                    ['class' => 'yii\grid\ActionColumn',
+                        'contentOptions' => ['style' => 'min-width: 70px;']
+                    ]
                 ]
             ]);
             ?>

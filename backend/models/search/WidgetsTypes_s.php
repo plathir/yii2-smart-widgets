@@ -8,7 +8,8 @@ use plathir\widgets\backend\models\WidgetsTypes as Widgets;
 
 
 class WidgetsTypes_s extends Widgets {
-
+   public $environment;
+   
     /**
      * @inheritdoc
      */
@@ -16,6 +17,7 @@ class WidgetsTypes_s extends Widgets {
         return [
             [['id'], 'integer'],
             [['module_name', 'widget_name', 'widget_class', 'description', ], 'string'],
+            [['environment'], 'safe'],
         ];
     }
 
@@ -30,10 +32,26 @@ class WidgetsTypes_s extends Widgets {
     public function search($params) {
         $query = Widgets::find();
 
+        $query->select(['*', "SUBSTRING(module_name,1,LOCATE('-',module_name)- 1) AS environment"]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
+        
+        $dataProvider->setSort([
+            'attributes' => [
+                'id',
+                'module_name',
+                'widget_name',
+                'widget_class',
+                'description',
+                'environment' => [
+                    'asc' => ['environment' => SORT_ASC],
+                    'desc' => ['environment' => SORT_DESC],
+                    'label' => 'Environment',
+                ],
+            ]
+        ]);
+        
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
@@ -45,7 +63,8 @@ class WidgetsTypes_s extends Widgets {
 
          $query->andFilterWhere(['like', 'widget_name', $this->widget_name])
                ->andFilterWhere(['like', 'widget_class', $this->widget_class])
-               ->andFilterWhere(['like', 'description', $this->description]);
+               ->andFilterWhere(['like', 'description', $this->description])
+               ->andFilterWhere(['like', "SUBSTRING(module_name,1,LOCATE('-',module_name)-1)", $this->environment]);
                  
         
         return $dataProvider;
