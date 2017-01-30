@@ -15,7 +15,7 @@ class widgetsAsset extends AssetBundle {
     ];
 
     public function init() {
-        $this->setSourcePath('@vendor/plathir/yii2-smart-widgets/common/assets');
+  //      $this->setSourcePath('@vendor/plathir/yii2-smart-widgets/common/assets');
         parent::init();
     }
 

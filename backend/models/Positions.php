@@ -3,6 +3,7 @@
 namespace plathir\widgets\backend\models;
 
 use yii;
+use \plathir\widgets\common\helpers\WidgetHelper;
 
 class Positions extends \yii\db\ActiveRecord {
 
@@ -32,8 +33,9 @@ class Positions extends \yii\db\ActiveRecord {
     }
 
     public function getModuleslist() {
-
-        $newItems = \plathir\widgets\common\helpers\WidgetHelper::getListOfModules();
+            
+        $widgetHelper = new WidgetHelper();
+        $newItems = $widgetHelper->getListOfModules();
 
         return $newItems;
     }

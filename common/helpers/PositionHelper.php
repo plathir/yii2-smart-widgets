@@ -21,6 +21,7 @@ class PositionHelper {
     public function LoadPosition($PositionID) {
 
         $position = Positions::findOne($PositionID);
+        $widgetHelper = new WidgetHelper();
 
         if ($position && $position->publish == 1 ) {
             $sort_order = PositionsSortOrder::findOne($PositionID);
@@ -30,7 +31,7 @@ class PositionHelper {
                 $html_widget = '';
                 foreach ($widgets_array as $widget) {
 
-                    $html_widget .= WidgetHelper::LoadWidget($widget);
+                    $html_widget .= $widgetHelper->LoadWidget($widget);
                 }
 
                 return $html_widget;

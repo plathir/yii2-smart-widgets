@@ -3,7 +3,7 @@
 namespace plathir\widgets\backend\models;
 
 use yii;
-//use plathir\smartblog\backend\widgets;
+use \plathir\widgets\common\helpers\WidgetHelper;
 
 class WidgetsTypes extends \yii\db\ActiveRecord {
 
@@ -13,7 +13,14 @@ class WidgetsTypes extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
-            [['module_name', 'widget_name', 'widget_class', 'description'], 'required'],
+            [['module_name', 'widget_name', 'widget_class','description'], 'required'],
+            ['widget_class',
+                function ($attribute, $params) {
+                    if (!class_exists($this->$attribute)) {
+                        $this->addError($attribute, 'Class cannot exist');
+                    }
+                }
+            ],
         ];
     }
 
@@ -31,9 +38,8 @@ class WidgetsTypes extends \yii\db\ActiveRecord {
     }
 
     public function getModuleslist() {
-
-        $newItems = \plathir\widgets\common\helpers\WidgetHelper::getListOfModules();
-
+        $widgetHelper = new WidgetHelper();
+        $newItems = $widgetHelper->getListOfModules();
         return $newItems;
     }
 
@@ -49,4 +55,5 @@ class WidgetsTypes extends \yii\db\ActiveRecord {
     public function getWidgets() {
         return $this->hasMany(Widgets::className(), ['widget_type' => 'id']);
     }
+
 }
