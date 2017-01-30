@@ -6,6 +6,7 @@ use plathir\widgets\backend\models\Positions;
 use plathir\widgets\backend\models\Widgets;
 use plathir\widgets\common\helpers\WidgetHelper;
 use plathir\widgets\backend\models\PositionsSortOrder;
+use yii;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,17 +19,24 @@ class PositionHelper {
      * Load Position
      */
 
-    public function LoadPosition($PositionID) {
+    public function LoadPosition($PositionID, $display_position = false) {
+        $display_position = Yii::$app->getRequest()->getQueryParam('display_position');
 
         $position = Positions::findOne($PositionID);
         $widgetHelper = new WidgetHelper();
 
-        if ($position && $position->publish == 1 ) {
+        if ($position && $position->publish == 1) {
+            // Display Position name before displays widgets
+            if ($display_position === 'true') {
+                $html_widget = $position->name;
+            } else {
+                $html_widget = '';
+            }
+
             $sort_order = PositionsSortOrder::findOne($PositionID);
             if ($sort_order) {
                 $widgets_array = explode(',', $sort_order->widget_sort_order);
 
-                $html_widget = '';
                 foreach ($widgets_array as $widget) {
 
                     $html_widget .= $widgetHelper->LoadWidget($widget);
