@@ -13,6 +13,16 @@ class Module extends \yii\base\Module {
         $this->setViewPath($path);
 
         parent::init();
+        $this->registerTranslations();
+    }
+
+    public function registerTranslations() {
+        /*         * This registers translations for the widgets module * */
+        Yii::$app->i18n->translations['widgets'] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en',
+            'basePath' => Yii::getAlias('@vendor/plathir/yii2-smart-widgets/backend/messages'),
+        ];
     }
 
 }

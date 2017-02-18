@@ -5,7 +5,6 @@ namespace plathir\widgets\backend\models;
 use yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use plathir\widgets\backend\models\PositionsSortOrder;
 use plathir\widgets\common\helpers\PositionHelper;
 use plathir\widgets\backend\models\WidgetsTypes;
 use plathir\widgets\backend\models\Positions;
@@ -27,8 +26,8 @@ class Widgets extends \yii\db\ActiveRecord {
                 ],
                 // if you're using datetime instead of UNIX timestamp:
                 'value' => function() {
-            return date('U');
-        }
+                    return date('U');
+                }
             ]
         ];
     }
@@ -41,6 +40,14 @@ class Widgets extends \yii\db\ActiveRecord {
             [['created_at', 'updated_at'], 'integer'],
             [['widgettypedescr'], 'string'],
             [['positiondescr'], 'string'],
+            ['config',
+                function ($attribute, $params) {
+                    // Validate json in config
+                    $emp_json = json_decode($this->$attribute);
+                    if (json_last_error() != null)
+                        $this->addError($attribute, Yii::t('widgets', 'json in config not Valid'));
+                }
+            ],
         ];
     }
 
@@ -49,11 +56,11 @@ class Widgets extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'description' => Yii::t('app', 'Description'),
-            'widgettypedescr' => Yii::t('app', 'Widget Type'),
-            'positiondescr' => Yii::t('app', 'Position'),
-            'publishbadge' => Yii::t('app', 'Publish'),
+            'id' => Yii::t('widgets', 'ID'),
+            'description' => Yii::t('widgets', 'Description'),
+            'widgettypedescr' => Yii::t('widgets', 'Widget Type'),
+            'positiondescr' => Yii::t('widgets', 'Position'),
+            'publishbadge' => Yii::t('widgets', 'Publish'),
         ];
     }
 
@@ -99,20 +106,21 @@ class Widgets extends \yii\db\ActiveRecord {
             return null;
         }
     }
-       public function getPublishbadge() {
-           $badge = '';
-           switch ($this->publish) {
-               case 0:
-                   $badge = '<span class="label label-danger">Unpublished</span>';
-                   break;
-               case 1:
-                    $badge = '<span class="label label-success">Published</span>';
-                   break;
-               default:
-                   break;
-           }
+
+    public function getPublishbadge() {
+        $badge = '';
+        switch ($this->publish) {
+            case 0:
+                $badge = '<span class="label label-danger">' . Yii::t('widgets', 'Unpublished') . '</span>';
+                break;
+            case 1:
+                $badge = '<span class="label label-success">' . Yii::t('widgets', 'Published') . '</span>';
+                break;
+            default:
+                break;
+        }
 
         return $badge;
-        
-       }
+    }
+
 }

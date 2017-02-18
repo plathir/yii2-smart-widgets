@@ -23,8 +23,8 @@ class PositionsSortOrder extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'position_id' => Yii::t('app', 'Position ID'),
-            'widget_sort_order' => Yii::t('app', 'Widget Sort Order'),
+            'position_id' => Yii::t('widgets', 'Position ID'),
+            'widget_sort_order' => Yii::t('widgets', 'Widget Sort Order'),
         ];
     }
 
