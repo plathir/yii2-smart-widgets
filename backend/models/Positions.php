@@ -25,17 +25,17 @@ class Positions extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id' => Yii::t('app', 'Position ID'),
-            'name' => Yii::t('app', 'Name'),
-            'publish' => Yii::t('app', 'Publish'),
-            'environment' => Yii::t('app', 'Environment'),
-            'module_name' => Yii::t('app', 'Module Name'),
-            'publishbadge' => Yii::t('app', 'Publish'),
+            'id' => Yii::t('widgets', 'Position ID'),
+            'name' => Yii::t('widgets', 'Name'),
+            'publish' => Yii::t('widgets', 'Publish'),
+            'environment' => Yii::t('widgets', 'Environment'),
+            'module_name' => Yii::t('widgets', 'Module Name'),
+            'publishbadge' => Yii::t('widgets', 'Publish'),
         ];
     }
 
     public function getModuleslist() {
-            
+
         $widgetHelper = new WidgetHelper();
         $newItems = $widgetHelper->getListOfModules();
 
@@ -55,10 +55,10 @@ class Positions extends \yii\db\ActiveRecord {
         $badge = '';
         switch ($this->publish) {
             case 0:
-                $badge = '<span class="label label-danger">Unpublished</span>';
+                $badge = '<span class="label label-danger">' . Yii::t('widgets', 'Unpublished') . '</span>';
                 break;
             case 1:
-                $badge = '<span class="label label-success">Published</span>';
+                $badge = '<span class="label label-success">' . Yii::t('widgets', 'Published') . '</span>';
                 break;
             default:
                 break;
@@ -66,10 +66,9 @@ class Positions extends \yii\db\ActiveRecord {
 
         return $badge;
     }
-    
-        public function getWidgets() {
+
+    public function getWidgets() {
         return $this->hasMany(Widgets::className(), ['position' => 'id']);
     }
-
 
 }

@@ -9,14 +9,14 @@ use yii\data\ArrayDataProvider;
 /* @var $model app\models\Posts */
 
 $this->title = $model->id.'-'.$model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Positions', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('widgets','Positions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title"><?= 'View Position :' . Html::encode($this->title) ?></h3>
+        <h3 class="box-title"><?= Yii::t('widgets','View Position : {title}',['title'=>  Html::encode($this->title)]) ?></h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -25,18 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
     </div><!-- /.box-header -->
     <div class="box-body">
         <p>
-            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Yii::t('widgets','Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 
             <?=
-            Html::a('Delete', ['delete', 'id' => $model->id], [
+            Html::a(Yii::t('widgets','Delete'), ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
+                    'confirm' => Yii::t('widgets','Are you sure you want to delete this item?'),
                     'method' => 'post',
                 ],
             ]);
             ?>
-           <?= Html::a('Sort Order', ['/widgets/positions_sorder/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+           <?= Html::a(Yii::t('widgets','Sort Order'), ['/widgets/positions_sorder/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         </p>
 
         <?=
@@ -66,8 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <br>
         <div class="box box-danger">
             <div class="box-header with-border">
-                <h3 class="box-title"><?= 'Widgets with position : '. $model->name ?></h3>
-
+                <h3 class="box-title"><?= Yii::t('widgets', 'Widgets with position : {name} ',['name'=> $model->name]) ?></h3>
             </div><!-- /.box-header -->
             <div class="box-body">
                 <?php

@@ -1,6 +1,7 @@
 <?php
 
 namespace plathir\widgets\backend\controllers;
+
 use yii;
 use yii\web\Controller;
 use \plathir\widgets\backend\models\WidgetsTypes;
@@ -12,6 +13,12 @@ use yii\filters\VerbFilter;
  *
  */
 class TypesController extends Controller {
+
+    public function init() {
+        parent::init();
+        #add your logic: read the cookie and then set the language
+        //  \Yii::$app->language = 'en'; 
+    }
 
     public function behaviors() {
         return [
@@ -38,7 +45,7 @@ class TypesController extends Controller {
         $model = new WidgetsTypes();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', 'Type : ' . $model->id . ' created !');
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets','Type : {type} created', [ 'type' => $model->id]));
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
@@ -51,7 +58,7 @@ class TypesController extends Controller {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', 'Type : ' . $model->id . ' updated !');
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets','Type : {type} updated', [ 'type' => $model->id]));
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [
@@ -62,15 +69,15 @@ class TypesController extends Controller {
 
     public function actionView($id) {
         $model = $this->findModel($id);
-        
+
         return $this->render('view', [
-            'model' => $model
+                    'model' => $model
         ]);
     }
 
     public function actionDelete($id) {
         if ($this->findModel($id)->delete()) {
-            Yii::$app->getSession()->setFlash('success', 'Type : ' . $id . ' Deleted ! ');
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets','Type : {type} deleted', [ 'type' => $model->id]));
         }
         return $this->redirect(['index']);
     }
@@ -79,10 +86,8 @@ class TypesController extends Controller {
         if (($model = WidgetsTypes::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('widgets','The requested page does not exist.'));
         }
     }
-    
-    
 
 }

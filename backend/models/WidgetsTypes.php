@@ -20,7 +20,7 @@ class WidgetsTypes extends \yii\db\ActiveRecord {
             ['widget_class',
                 function ($attribute, $params) {
                     if (!class_exists($this->$attribute)) {
-                        $this->addError($attribute, 'Class cannot exist');
+                        $this->addError($attribute, Yii::t('widgets','Class {class} cannot exist', [ 'class' => $this->$attribute]));
                     }
                 }
             ],
@@ -32,11 +32,11 @@ class WidgetsTypes extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id' => Yii::t('app', 'Widget Type ID'),
-            'module_name' => Yii::t('app', 'Module Name'),
-            'widget_name' => Yii::t('app', 'Widget Name'),
-            'widget_class' => Yii::t('app', 'Widget class'),
-            'description' => Yii::t('app', 'Description'),
+            'id' => Yii::t('widgets', 'Widget Type ID'),
+            'module_name' => Yii::t('widgets', 'Module Name'),
+            'widget_name' => Yii::t('widgets', 'Widget Name'),
+            'widget_class' => Yii::t('widgets', 'Widget class'),
+            'description' => Yii::t('widgets', 'Description'),
         ];
     }
 

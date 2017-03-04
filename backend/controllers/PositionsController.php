@@ -42,7 +42,7 @@ class PositionsController extends Controller {
         $model = new Positions();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', 'Position : ' . $model->id . ' created !');
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {id} created', ['id' => $model->id]));
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
@@ -55,7 +55,8 @@ class PositionsController extends Controller {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', 'Position : ' . $model->id . ' updated !');
+
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {id} updated', ['id' => $model->id]));
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [
@@ -75,7 +76,7 @@ class PositionsController extends Controller {
 
     public function actionDelete($id) {
         if ($this->findModel($id)->delete()) {
-            Yii::$app->getSession()->setFlash('success', 'Position : ' . $id . ' Deleted ! ');
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {id} deleted', ['id' => $model->id]));
         }
         return $this->redirect(['index']);
     }
@@ -86,20 +87,21 @@ class PositionsController extends Controller {
         foreach ($positions as $position) {
             PositionHelper::BuildPosition($position->id);
         }
-        Yii::$app->getSession()->setFlash('success', 'Rebuild All Positions ! ');
+        Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Rebuild All Positions ! '));
         return $this->redirect(['index']);
     }
 
-        public function actionRebuildposition($position_id) {
-       PositionHelper::BuildPosition($position_id);
-       Yii::$app->getSession()->setFlash('success', 'Rebuild Position ' .$position_id . ' ! ');
+    public function actionRebuildposition($position_id) {
+        PositionHelper::BuildPosition($position_id);
+        Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Rebuild Position {id} ! ', ['id' => $position_id]));
         return $this->redirect(['index']);
     }
+
     protected function findModel($id) {
         if (($model = Positions::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('widgets', 'The requested page does not exist.'));
         }
     }
 

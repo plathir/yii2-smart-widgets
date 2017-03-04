@@ -39,17 +39,16 @@ class Positions_sorderController extends Controller {
         $model = $this->findModel($id);
         if ($model != null) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                Yii::$app->getSession()->setFlash('success', 'Position : ' . $model->position_id . ' updated !');
+                Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {id} updated !', ['id' => $model->position_id]));
                 return $this->goBack();
             } else {
                 return $this->render('update', [
                             'model' => $model
                 ]);
             }
-            
         } else {
-           Yii::$app->getSession()->setFlash('danger', 'No sort order found for Position : ' . $id);
-           return $this->goBack();
+            Yii::$app->getSession()->setFlash('danger', Yii::t('widgets', 'No sort order found for Position : {id} ', ['id' => $id]));
+            return $this->goBack();
         }
     }
 
@@ -57,7 +56,7 @@ class Positions_sorderController extends Controller {
         if (($model = \plathir\widgets\backend\models\PositionsSortOrder::findOne($id)) !== null) {
             return $model;
         } else {
-            Yii::$app->getSession()->setFlash('danger', 'Not found widgets for Position : ' . $id);
+            Yii::$app->getSession()->setFlash('danger', Yii::t('widgets', 'Not found widgets for Position : {id} ', ['id' => $id]));
 //            throw new NotFoundHttpException('The requested page does not exist.');
         }
     }

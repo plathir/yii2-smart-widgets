@@ -8,15 +8,15 @@ use yii\data\ArrayDataProvider;
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
 
-$this->title = $model->id. '-'. $model->widget_name ;
-$this->params['breadcrumbs'][] = ['label' => 'Widget Types', 'url' => ['index']];
+$this->title = $model->id . '-' . $model->widget_name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('widgets', 'Widget Types'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
 <div class="box box-info">
     <div class="box-header with-border">
-        <h3 class="box-title"><?= 'View Widget Type :' . Html::encode($this->title) ?></h3>
+        <h3 class="box-title"><?= Yii::t('widgets', 'View Widget Type : {title} ', ['title' => Html::encode($this->title)]) ?></h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -25,12 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
     </div><!-- /.box-header -->
     <div class="box-body">
         <p>           
-            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Yii::t('widgets', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
             <?=
-            Html::a('Delete', ['delete', 'id' => $model->id], [
+            Html::a(Yii::t('widgets', 'Delete'), ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
+                    'confirm' => Yii::t('widgets', 'Are you sure you want to delete this item?'),
                     'method' => 'post',
                 ],
             ]);
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $provider = new ArrayDataProvider([
             'allModels' => $model->widgets,
             'sort' => [
-                'attributes' => ['id', 'name','positiondescr', 'publishbadge'],
+                'attributes' => ['id', 'name', 'positiondescr', 'publishbadge'],
             ],
             'pagination' => [
                 'pageSize' => 10,
@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <br>
         <div class="box box-danger">
             <div class="box-header with-border">
-                <h3 class="box-title"><?= 'Widgets with type : '. $model->widget_name ?></h3>
+                <h3 class="box-title"><?= Yii::t('widgets', 'Widgets with type : {type} ', ['type' => $model->widget_name]) ?></h3>
 
             </div><!-- /.box-header -->
             <div class="box-body">
@@ -75,27 +75,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columns' => [
                         'id',
                         [
-                          'attribute' => 'name',
-                          'value' => function($model) {
-                              return  Html::a($model->name, ['/widgets/default/view', 'id' => $model->id]);
-                          },
-                          'format' =>'html',
-                            
+                            'attribute' => 'name',
+                            'value' => function($model) {
+                                return Html::a($model->name, ['/widgets/default/view', 'id' => $model->id]);
+                            },
+                            'format' => 'html',
                         ],
                         [
-                          'attribute' => 'positiondescr',
-                          'value' => function($model) {
-                              return  Html::a($model->positiondescr, ['/widgets/positions/view', 'id' => $model->position]);
-                          },
-                          'format' =>'html',
-                            
+                            'attribute' => 'positiondescr',
+                            'value' => function($model) {
+                                return Html::a($model->positiondescr, ['/widgets/positions/view', 'id' => $model->position]);
+                            },
+                            'format' => 'html',
                         ],
-                                 
                         'publishbadge:html',
                 ]]);
                 ?>
-
-
             </div>
         </div>
 
