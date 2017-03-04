@@ -28,14 +28,14 @@ use kartik\datecontrol\DateControl;
 
         <?php
         $widgets_types_Model = new plathir\widgets\backend\models\WidgetsTypes();
-        $items = \yii\helpers\ArrayHelper::map($widgets_types_Model::find()->all(), 'id', 'widget_name');
+        $items = \yii\helpers\ArrayHelper::map($widgets_types_Model::find()->all(), 'tech_name', 'widget_name');
         ?>   
 
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdTypes']]); ?>
         <?= $form->field($model, 'widget_type')->dropDownList($items) ?> 
         <?= $form->field($model, 'name'); ?> 
         <?= $form->field($model, 'description'); ?>  
-        <?= $form->field($model, 'position')->dropDownList(\yii\helpers\ArrayHelper::map(plathir\widgets\backend\models\Positions::find()->all(), 'id', 'name')); ?>  
+        <?= $form->field($model, 'position')->dropDownList(\yii\helpers\ArrayHelper::map(plathir\widgets\backend\models\Positions::find()->all(), 'tech_name', 'name')); ?>  
         <?= $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
         <?= $form->field($model, 'config')->textarea(['rows' => 10]); ?>
         <?= $form->field($model, 'rules')->textarea(['rows' => 4]); ?>

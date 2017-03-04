@@ -16,6 +16,7 @@ class Positions_s extends Positions {
     public function rules() {
         return [
             [['id'], 'integer'],
+            [['tech_name'], 'string'],
             [['name', 'module_name'], 'string'],
             [['environment'], 'safe'],
             [['publish'], 'integer']
@@ -59,6 +60,7 @@ class Positions_s extends Positions {
 
         $query->andFilterWhere(['id' => $this->id])
                 ->andFilterWhere(['publish' => $this->publish])
+                ->andFilterWhere(['like', 'tech_name', $this->tech_name])
                 ->andFilterWhere(['like', 'name', $this->name])
                 ->andFilterWhere(['like', 'module_name', $this->module_name])
                 ->andFilterWhere(['like', "SUBSTRING(module_name,1,LOCATE('-',module_name)-1)", $this->environment]);

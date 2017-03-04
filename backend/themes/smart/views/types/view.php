@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'template' => '<tr><th style="width:20%">{label}</th><td style="width:80%">{value}</td></tr>',
             'attributes' => [
                 'id',
+                'tech_name',
                 'module_name',
                 'widget_name',
                 'widget_class',

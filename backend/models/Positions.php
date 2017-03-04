@@ -13,6 +13,8 @@ class Positions extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
+            [['tech_name'], 'unique'],
+            [['tech_name'], 'required' ],
             [['name', 'module_name'], 'required'],
             [['publish'], 'integer']
         ];

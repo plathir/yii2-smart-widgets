@@ -31,6 +31,7 @@ use yii\widgets\ActiveForm;
 
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdTypes']]); ?>
         <?php
+        echo $form->field($model, 'tech_name');
         echo $form->field($model, 'module_name')->dropDownList($newItems)
         ?> 
         <?= $form->field($model, 'widget_name'); ?> 

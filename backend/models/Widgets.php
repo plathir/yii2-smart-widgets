@@ -34,9 +34,9 @@ class Widgets extends \yii\db\ActiveRecord {
     }
 
     public function rules() {
-        return [
-            [['widget_type'], 'required'],
-            [['id', 'widget_type', 'publish'], 'integer'],
+        return [           
+            [['widget_type'], 'string'],
+            [['id', 'publish'], 'integer'],
             [['name', 'description', 'position', 'config', 'rules'], 'string'],
             [['created_at', 'updated_at'], 'integer'],
             [['widgettypedescr'], 'string'],

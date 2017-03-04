@@ -26,6 +26,7 @@ use kartik\widgets\SwitchInput;
 
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPositions']]); ?>
         <?php
+        echo $form->field($model, 'tech_name');
         echo $form->field($model, 'name');
         echo $form->field($model, 'module_name')->dropDownList($newItems);
         echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []);

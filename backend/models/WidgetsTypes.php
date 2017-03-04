@@ -13,6 +13,9 @@ class WidgetsTypes extends \yii\db\ActiveRecord {
 
     public function rules() {
         return [
+            [['tech_name'], 'required' ],
+            [['tech_name'], 'unique' ],
+            
             [['module_name', 'widget_name', 'widget_class','description'], 'required'],
             ['widget_class',
                 function ($attribute, $params) {

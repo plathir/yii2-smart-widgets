@@ -27,6 +27,10 @@ use \yii\helpers\ArrayHelper;
                     'attribute' => 'id',
                 ],
                 [
+                    'attribute' => 'tech_name',
+                ],
+
+                [
                     'attribute' => 'name',
                 ],
                 [

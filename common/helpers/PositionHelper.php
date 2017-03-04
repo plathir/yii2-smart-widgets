@@ -19,13 +19,13 @@ class PositionHelper {
      * Load Position
      */
 
-    public function LoadPosition($PositionID, $display_position = false) {
+    public function LoadPosition($PositionTechName, $display_position = false) {
         $display_position = Yii::$app->getRequest()->getQueryParam('display_position');
-
-        $position = Positions::findOne($PositionID);
+        $position = Positions::findOne(['tech_name'=> $PositionTechName]);
         $widgetHelper = new WidgetHelper();
 
         if ($position && $position->publish == 1) {
+            $PositionID = $position->id;
             // Display Position name before displays widgets
             if ($display_position === 'true') {
                 $html_widget = $position->name;

@@ -25,6 +25,10 @@ use \yii\helpers\ArrayHelper;
                     'attribute' => 'id',
                 ],
                 [
+                    'attribute' => 'tech_name',
+                ],
+                
+                [
                     'attribute' => 'environment',
                     'format' => 'html',
                     'filter' => Html::activeDropDownList($searchModel, 'environment', ['backend' => 'backend', 'frontend' => 'frontend'], ['class' => 'form-control', 'prompt' => 'Select...'])

@@ -16,6 +16,7 @@ class WidgetsTypes_s extends Widgets {
     public function rules() {
         return [
             [['id'], 'integer'],
+            [['tech_name'], 'string'],
             [['module_name', 'widget_name', 'widget_class', 'description', ], 'string'],
             [['environment'], 'safe'],
         ];
@@ -40,6 +41,7 @@ class WidgetsTypes_s extends Widgets {
         $dataProvider->setSort([
             'attributes' => [
                 'id',
+                'tech_name',
                 'module_name',
                 'widget_name',
                 'widget_class',
@@ -63,6 +65,7 @@ class WidgetsTypes_s extends Widgets {
 
          $query->andFilterWhere(['like', 'widget_name', $this->widget_name])
                ->andFilterWhere(['like', 'widget_class', $this->widget_class])
+               ->andFilterWhere(['like', 'tech_name', $this->tech_name])
                ->andFilterWhere(['like', 'description', $this->description])
                ->andFilterWhere(['like', "SUBSTRING(module_name,1,LOCATE('-',module_name)-1)", $this->environment]);
                  
