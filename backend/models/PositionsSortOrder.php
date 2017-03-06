@@ -13,7 +13,7 @@ class PositionsSortOrder extends \yii\db\ActiveRecord {
     
         public function rules() {
         return [
-            [['position_id','widget_sort_order'], 'required'],
+            [['position_tech_name','widget_sort_order'], 'required'],
             
         ];
     }
@@ -23,7 +23,7 @@ class PositionsSortOrder extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'position_id' => Yii::t('widgets', 'Position ID'),
+            'position_tech_name' => Yii::t('widgets', 'Position Technical Name'),
             'widget_sort_order' => Yii::t('widgets', 'Widget Sort Order'),
         ];
     }

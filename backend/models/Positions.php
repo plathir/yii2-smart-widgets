@@ -25,7 +25,7 @@ class Positions extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id' => Yii::t('widgets', 'Position ID'),
+            'tech_name' => Yii::t('widgets', 'Position Technical Name'),
             'name' => Yii::t('widgets', 'Name'),
             'publish' => Yii::t('widgets', 'Publish'),
             'environment' => Yii::t('widgets', 'Environment'),
@@ -68,7 +68,7 @@ class Positions extends \yii\db\ActiveRecord {
     }
 
     public function getWidgets() {
-        return $this->hasMany(Widgets::className(), ['position' => 'id']);
+        return $this->hasMany(Widgets::className(), ['position' => 'tech_name']);
     }
 
 }

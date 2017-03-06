@@ -8,7 +8,7 @@ use yii\data\ArrayDataProvider;
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
 
-$this->title = $model->id . '-' . $model->widget_name;
+$this->title = $model->tech_name . '-' . $model->widget_name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('widgets', 'Widget Types'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -25,9 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </div><!-- /.box-header -->
     <div class="box-body">
         <p>           
-            <?= Html::a(Yii::t('widgets', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Yii::t('widgets', 'Update'), ['update', 'tech_name' => $model->tech_name], ['class' => 'btn btn-primary']) ?>
             <?=
-            Html::a(Yii::t('widgets', 'Delete'), ['delete', 'id' => $model->id], [
+            Html::a(Yii::t('widgets', 'Delete'), ['delete', 'tech_name' => $model->tech_name], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => Yii::t('widgets', 'Are you sure you want to delete this item?'),
@@ -42,7 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'model' => $model,
             'template' => '<tr><th style="width:20%">{label}</th><td style="width:80%">{value}</td></tr>',
             'attributes' => [
-                'id',
                 'tech_name',
                 'module_name',
                 'widget_name',
@@ -54,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $provider = new ArrayDataProvider([
             'allModels' => $model->widgets,
             'sort' => [
-                'attributes' => ['id', 'name', 'positiondescr', 'publishbadge'],
+                'attributes' => ['tech_name', 'name', 'positiondescr', 'publishbadge'],
             ],
             'pagination' => [
                 'pageSize' => 10,
@@ -73,7 +72,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $provider,
                     'tableOptions' => ['class' => 'table table-responsive table no-margin'],
                     'columns' => [
-                        'id',
                         [
                             'attribute' => 'name',
                             'value' => function($model) {
@@ -84,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'positiondescr',
                             'value' => function($model) {
-                                return Html::a($model->positiondescr, ['/widgets/positions/view', 'id' => $model->position]);
+                                return Html::a($model->positiondescr, ['/widgets/positions/view', 'tech_name' => $model->position]);
                             },
                             'format' => 'html',
                         ],

@@ -8,7 +8,7 @@ use yii\data\ArrayDataProvider;
 /* @var $this yii\web\View */
 /* @var $model app\models\Posts */
 
-$this->title = $model->id.'-'.$model->name;
+$this->title = $model->tech_name.'-'.$model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('widgets','Positions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -25,10 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div><!-- /.box-header -->
     <div class="box-body">
         <p>
-            <?= Html::a(Yii::t('widgets','Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Yii::t('widgets','Update'), ['update', 'tech_name' => $model->tech_name], ['class' => 'btn btn-primary']) ?>
 
             <?=
-            Html::a(Yii::t('widgets','Delete'), ['delete', 'id' => $model->id], [
+            Html::a(Yii::t('widgets','Delete'), ['delete', 'tech_name' => $model->tech_name], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => Yii::t('widgets','Are you sure you want to delete this item?'),
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]);
             ?>
-           <?= Html::a(Yii::t('widgets','Sort Order'), ['/widgets/positions_sorder/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+           <?= Html::a(Yii::t('widgets','Sort Order'), ['/widgets/positions_sorder/update', 'tech_name' => $model->tech_name], ['class' => 'btn btn-primary']) ?>
         </p>
 
         <?=
@@ -44,7 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'model' => $model,
             'template' => '<tr><th style="width:20%">{label}</th><td style="width:80%">{value}</td></tr>',
             'attributes' => [
-                'id',
                 'tech_name',
                 'name',
                 'environment',
@@ -86,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                           'attribute' => 'widgettypedescr',
                           'value' => function($model) {
-                              return  Html::a($model->widgettypedescr, ['/widgets/types/view', 'id' => $model->widget_type]);
+                              return  Html::a($model->widgettypedescr, ['/widgets/types/view', 'tech_name' => $model->widget_type]);
                           },
                           'format' =>'html',
                             

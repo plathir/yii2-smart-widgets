@@ -25,7 +25,7 @@ class PositionHelper {
         $widgetHelper = new WidgetHelper();
 
         if ($position && $position->publish == 1) {
-            $PositionID = $position->id;
+            $PositionTechName = $position->tech_name;
             // Display Position name before displays widgets
             if ($display_position === 'true') {
                 $html_widget = $position->name;
@@ -33,7 +33,7 @@ class PositionHelper {
                 $html_widget = '';
             }
 
-            $sort_order = PositionsSortOrder::findOne($PositionID);
+            $sort_order = PositionsSortOrder::findOne($PositionTechName);
             if ($sort_order) {
                 $widgets_array = explode(',', $sort_order->widget_sort_order);
 
@@ -49,14 +49,13 @@ class PositionHelper {
         }
     }
 
-    public function BuildPosition($position_id) {
-        echo $position_id . '<br><pre>';
-        $PositionWidgets = Widgets::find()->where('position = :id', ['id' => $position_id])->all();
+    public function BuildPosition($position_tech_name) {
+        $PositionWidgets = Widgets::find()->where('position = :tech_name', ['tech_name' => $position_tech_name])->all();
 
-        $position = PositionsSortOrder::findOne($position_id);
+        $position = PositionsSortOrder::findOne($position_tech_name);
         if (!$position) {
             $position = new PositionsSortOrder();
-            $position->position_id = $position_id;
+            $position->position_tech_name = $position_tech_name;
             $PositionSortOrder = [];
         } else {
             if ($position->widget_sort_order) {
@@ -85,7 +84,7 @@ class PositionHelper {
                 $PositionSortOrder = PositionHelper::my_remove_array_item($PositionSortOrder, $temp_widget_id);
             } else {
 
-                if ($temp_widget->position <> $position_id) {
+                if ($temp_widget->position <> $position_tech_name) {
                     echo 'In';
                     $PositionSortOrder = PositionHelper::my_remove_array_item($PositionSortOrder, $temp_widget_id);
                 }

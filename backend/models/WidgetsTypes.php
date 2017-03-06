@@ -32,7 +32,7 @@ class WidgetsTypes extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id' => Yii::t('widgets', 'Widget Type ID'),
+            'tech_name' => Yii::t('widgets', 'Widget Technical Name'),
             'module_name' => Yii::t('widgets', 'Module Name'),
             'widget_name' => Yii::t('widgets', 'Widget Name'),
             'widget_class' => Yii::t('widgets', 'Widget class'),
@@ -56,7 +56,7 @@ class WidgetsTypes extends \yii\db\ActiveRecord {
     }
 
     public function getWidgets() {
-        return $this->hasMany(Widgets::className(), ['widget_type' => 'id']);
+        return $this->hasMany(Widgets::className(), ['widget_type' => 'tech_name']);
     }
 
 }

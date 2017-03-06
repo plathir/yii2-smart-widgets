@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 use \yii\helpers\ArrayHelper;
 ?>
@@ -23,12 +24,8 @@ use \yii\helpers\ArrayHelper;
             'filterModel' => $searchModel,
             'columns' => [
                 [
-                    'attribute' => 'id',
-                ],
-                [
                     'attribute' => 'tech_name',
                 ],
-
                 [
                     'attribute' => 'name',
                 ],
@@ -58,7 +55,7 @@ use \yii\helpers\ArrayHelper;
                     'template' => '{my_button}',
                     'buttons' => [
                         'my_button' => function ($url, $model, $key) {
-                            return Html::a(Yii::t('widgets', 'Sort Order'), ['positions_sorder/update', 'id' => $model->id]);
+                            return Html::a(Yii::t('widgets', 'Sort Order'), ['positions_sorder/update', 'tech_name' => $model->tech_name]);
                         },
                     ],
                 ],
@@ -67,12 +64,46 @@ use \yii\helpers\ArrayHelper;
                     'template' => '{my_button}',
                     'buttons' => [
                         'my_button' => function ($url, $model, $key) {
-                            return Html::a(Yii::t('widgets', 'Rebuild'), ['rebuildposition', 'position_id' => $model->id]);
+                            return Html::a(Yii::t('widgets', 'Rebuild'), ['rebuildposition', 'tech_name' => $model->tech_name]);
                         },
                     ]
                 ],
                 ['class' => 'yii\grid\ActionColumn',
-                    'contentOptions' => ['style' => 'min-width: 70px;']
+                    'template' => '{view}{update}{delete}',
+                    'contentOptions' => ['style' => 'min-width: 80px;'],
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>&nbsp;', $url, [
+                                        'title' => Yii::t('widgets', 'view'),
+                            ]);
+                        },
+                        'update' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>&nbsp;', $url, [
+                                        'title' => Yii::t('widgets', 'view'),
+                            ]);
+                        },
+                        'delete' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span>&nbsp;', $url, [
+                                        'title' => Yii::t('widgets', 'delete'),
+                                        'data-confirm' => Yii::t('widgets', 'Delete position ! Are yoy sure ?'),
+                                        'data-method' => 'post'
+                            ]);
+                        },
+                    ],
+                    'urlCreator' => function ($action, $model, $key, $index) {
+                        if ($action === 'view') {
+                            $url = Url::to(['positions/view', 'tech_name' => $model->tech_name]);
+                            return $url;
+                        }
+                        if ($action === 'update') {
+                            $url = Url::to(['positions/update', 'tech_name' => $model->tech_name]);
+                            return $url;
+                        }
+                        if ($action === 'delete') {
+                            $url = Url::to(['positions/delete', 'tech_name' => $model->tech_name]);
+                            return $url;
+                        }
+                    }
                 ]
             ]
         ]);

@@ -15,7 +15,6 @@ class Positions_s extends Positions {
      */
     public function rules() {
         return [
-            [['id'], 'integer'],
             [['tech_name'], 'string'],
             [['name', 'module_name'], 'string'],
             [['environment'], 'safe'],
@@ -41,7 +40,6 @@ class Positions_s extends Positions {
 
         $dataProvider->setSort([
             'attributes' => [
-                'id',
                 'name',
                 'name',
                 'module_name',
@@ -58,8 +56,7 @@ class Positions_s extends Positions {
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['id' => $this->id])
-                ->andFilterWhere(['publish' => $this->publish])
+        $query->andFilterWhere(['publish' => $this->publish])
                 ->andFilterWhere(['like', 'tech_name', $this->tech_name])
                 ->andFilterWhere(['like', 'name', $this->name])
                 ->andFilterWhere(['like', 'module_name', $this->module_name])

@@ -45,7 +45,7 @@ class TypesController extends Controller {
         $model = new WidgetsTypes();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('widgets','Type : {type} created', [ 'type' => $model->id]));
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Type : {type} created', ['type' => $model->id]));
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
@@ -54,11 +54,11 @@ class TypesController extends Controller {
         }
     }
 
-    public function actionUpdate($id) {
-        $model = $this->findModel($id);
+    public function actionUpdate($tech_name) {
+        $model = $this->findModel($tech_name);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('widgets','Type : {type} updated', [ 'type' => $model->id]));
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Type : {type} updated', ['type' => $model->id]));
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [
@@ -67,26 +67,26 @@ class TypesController extends Controller {
         }
     }
 
-    public function actionView($id) {
-        $model = $this->findModel($id);
+    public function actionView($tech_name) {
+        $model = $this->findModel($tech_name);
 
         return $this->render('view', [
                     'model' => $model
         ]);
     }
 
-    public function actionDelete($id) {
-        if ($this->findModel($id)->delete()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('widgets','Type : {type} deleted', [ 'type' => $model->id]));
+    public function actionDelete($tech_name) {
+        if ($this->findModel($tech_name)->delete()) {
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Type : {type} deleted', ['type' => $tech_name]));
         }
         return $this->redirect(['index']);
     }
 
-    protected function findModel($id) {
-        if (($model = WidgetsTypes::findOne($id)) !== null) {
+    protected function findModel($tech_name) {
+        if (($model = WidgetsTypes::findOne($tech_name)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(Yii::t('widgets','The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('widgets', 'The requested page does not exist.'));
         }
     }
 

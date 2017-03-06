@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 use \yii\helpers\ArrayHelper;
 ?>
@@ -22,9 +23,6 @@ use \yii\helpers\ArrayHelper;
             'columns' => [
 
                 [
-                    'attribute' => 'id',
-                ],
-                [
                     'attribute' => 'tech_name',
                 ],
                 
@@ -45,7 +43,41 @@ use \yii\helpers\ArrayHelper;
                     'attribute' => 'widget_class',
                 ],
                 ['class' => 'yii\grid\ActionColumn',
-                    'contentOptions' => ['style' => 'min-width: 70px;']
+                    'template' => '{view}{update}{delete}',
+                    'contentOptions' => ['style' => 'min-width: 80px;'],
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>&nbsp;', $url, [
+                                        'title' => Yii::t('widgets', 'view'),
+                            ]);
+                        },
+                        'update' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>&nbsp;', $url, [
+                                        'title' => Yii::t('widgets', 'view'),
+                            ]);
+                        },
+                        'delete' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span>&nbsp;', $url, [
+                                        'title' => Yii::t('widgets', 'delete'),
+                                        'data-confirm' => Yii::t('widgets', 'Delete type ! Are yoy sure ?'),
+                                        'data-method' => 'post'
+                            ]);
+                        },
+                    ],
+                    'urlCreator' => function ($action, $model, $key, $index) {
+                        if ($action === 'view') {
+                            $url = Url::to(['types/view', 'tech_name' => $model->tech_name]);
+                            return $url;
+                        }
+                        if ($action === 'update') {
+                            $url = Url::to(['types/update', 'tech_name' => $model->tech_name]);
+                            return $url;
+                        }
+                        if ($action === 'delete') {
+                            $url = Url::to(['types/delete', 'tech_name' => $model->tech_name]);
+                            return $url;
+                        }
+                    }
                 ]
             ]
         ]);

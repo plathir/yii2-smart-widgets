@@ -14,7 +14,7 @@ class PositionsSortOrder_s extends PositionsSortOrder {
      */
     public function rules() {
         return [
-            [['position_id'], 'integer'],
+            [['position_tech_name'], 'string'],
             [['widget_sort_ordrr'], 'string'],
         ];
     }
@@ -39,7 +39,7 @@ class PositionsSortOrder_s extends PositionsSortOrder {
         }
         
         $query->andFilterWhere([
-            'position_id' => $this->position_id,
+            'position_tech_name' => $this->position_tech_name,
         ]);
 
         return $dataProvider;

@@ -51,12 +51,12 @@ class PositionsController extends Controller {
         }
     }
 
-    public function actionUpdate($id) {
-        $model = $this->findModel($id);
+    public function actionUpdate($tech_name) {
+        $model = $this->findModel($tech_name);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {id} updated', ['id' => $model->id]));
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {tech_name} updated', ['id' => $model->id]));
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [
@@ -65,18 +65,18 @@ class PositionsController extends Controller {
         }
     }
 
-    public function actionView($id) {
+    public function actionView($tech_name) {
         \yii\helpers\Url::remember();
-        $model = $this->findModel($id);
+        $model = $this->findModel($tech_name);
 
         return $this->render('view', [
                     'model' => $model
         ]);
     }
 
-    public function actionDelete($id) {
-        if ($this->findModel($id)->delete()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {id} deleted', ['id' => $model->id]));
+    public function actionDelete($tech_name) {
+        if ($this->findModel($tech_name)->delete()) {
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {tech_name} deleted', ['id' => $tech_name]));
         }
         return $this->redirect(['index']);
     }
@@ -85,20 +85,20 @@ class PositionsController extends Controller {
         $contitions = "";
         $positions = Positions::find()->all();
         foreach ($positions as $position) {
-            PositionHelper::BuildPosition($position->id);
+            PositionHelper::BuildPosition($position->tech_name);
         }
         Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Rebuild All Positions ! '));
         return $this->redirect(['index']);
     }
 
-    public function actionRebuildposition($position_id) {
-        PositionHelper::BuildPosition($position_id);
-        Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Rebuild Position {id} ! ', ['id' => $position_id]));
+    public function actionRebuildposition($tech_name) {
+        PositionHelper::BuildPosition($tech_name);
+        Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Rebuild Position {tech_name} ! ', ['tech_name' => $tech_name]));
         return $this->redirect(['index']);
     }
 
-    protected function findModel($id) {
-        if (($model = Positions::findOne($id)) !== null) {
+    protected function findModel($tech_name) {
+        if (($model = Positions::findOne($tech_name)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException(Yii::t('widgets', 'The requested page does not exist.'));

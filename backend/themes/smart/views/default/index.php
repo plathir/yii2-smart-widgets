@@ -46,7 +46,7 @@ use kartik\datecontrol\DateControl;
                             return plathir\widgets\backend\models\WidgetsTypes::findOne($model->widget_type)->widget_name;
                         },
                         'format' => 'html',
-                        'filter' => Html::activeDropDownList($searchModel, 'widget_type', \yii\helpers\ArrayHelper::map(plathir\widgets\backend\models\WidgetsTypes::find()->all(), 'id', 'widget_name'), ['class' => 'form-control', 'prompt' => Yii::t('widgets', 'Select...')])
+                        'filter' => Html::activeDropDownList($searchModel, 'widget_type', \yii\helpers\ArrayHelper::map(plathir\widgets\backend\models\WidgetsTypes::find()->all(), 'tech_name', 'widget_name'), ['class' => 'form-control', 'prompt' => Yii::t('widgets', 'Select...')])
                     ],
                     [
                         'attribute' => 'name',
@@ -59,7 +59,7 @@ use kartik\datecontrol\DateControl;
                         'value' => function($model, $key, $index, $widget) {
                             return plathir\widgets\backend\models\Positions::findOne($model->position)->name;
                         },
-                        'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'position', \yii\helpers\ArrayHelper::map(plathir\widgets\backend\models\Positions::find()->all(), 'id', 'name'), ['class' => 'form-control', 'prompt' => Yii::t('widgets', 'Select...')]),
+                        'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'position', \yii\helpers\ArrayHelper::map(plathir\widgets\backend\models\Positions::find()->all(), 'tech_name', 'name'), ['class' => 'form-control', 'prompt' => Yii::t('widgets', 'Select...')]),
                     ],
                     [
                         'attribute' => 'publish',

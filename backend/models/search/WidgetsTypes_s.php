@@ -15,7 +15,6 @@ class WidgetsTypes_s extends Widgets {
      */
     public function rules() {
         return [
-            [['id'], 'integer'],
             [['tech_name'], 'string'],
             [['module_name', 'widget_name', 'widget_class', 'description', ], 'string'],
             [['environment'], 'safe'],
@@ -59,7 +58,6 @@ class WidgetsTypes_s extends Widgets {
         }
         
         $query->andFilterWhere([
-            'id' => $this->id,
             'module_name' => $this->module_name,
         ]);
 
