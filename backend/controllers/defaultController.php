@@ -37,7 +37,7 @@ class DefaultController extends Controller {
 
     public function actionCreate() {
         $model = new Widgets();
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Widget : {id} created ! ', ['id' => $model->id]));
             return $this->redirect(['index']);
@@ -74,6 +74,27 @@ class DefaultController extends Controller {
             Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Widget : {id} deleted ! ', ['id' => $model->id]));
         }
         return $this->redirect(['index']);
+    }
+
+    public function actionUpdateparams($id) {
+        $model = $this->findModel($id);
+        $model->selection_parameters = json_decode($model->config);
+        if ($model->load(Yii::$app->request->post())) {
+            $newParams = Yii::$app->request->post()['Widgets']['selection_parameters'];
+            $model->config = json_encode($newParams);
+            if ($model->save()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Widget : {id} parameters updated ! ', ['id' => $model->id]));
+                return $this->redirect(['index']);
+            } else {
+                return $this->render('update_params', [
+                            'model' => $model
+                ]);
+            }
+        } else {
+            return $this->render('update_params', [
+                        'model' => $model
+            ]);
+        }
     }
 
     protected function findModel($id) {

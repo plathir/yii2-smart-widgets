@@ -52,9 +52,6 @@ use kartik\datecontrol\DateControl;
                         'attribute' => 'name',
                     ],
                     [
-                        'attribute' => 'description',
-                    ],
-                    [
                         'attribute' => 'position',
                         'value' => function($model, $key, $index, $widget) {
                             return plathir\widgets\backend\models\Positions::findOne($model->position)->name;
@@ -102,6 +99,17 @@ use kartik\datecontrol\DateControl;
                         ]),
                         'contentOptions' => ['style' => 'width: 12%;']
                     ],
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'contentOptions' => ['style' => 'min-width: 80px;'],
+                    'template' => '{my_button}',
+                    'buttons' => [
+                        'my_button' => function ($url, $model, $key) {
+                            return Html::a(Yii::t('widgets', 'Parameters'), ['/widgets/default/updateparams', 'id' => $model->id]);
+                        },
+                    ],
+                ],
+
                     ['class' => 'yii\grid\ActionColumn',
                         'contentOptions' => ['style' => 'min-width: 70px;']
                     ]

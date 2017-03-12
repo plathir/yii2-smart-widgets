@@ -10,7 +10,8 @@ use plathir\widgets\backend\models\WidgetsTypes;
 use plathir\widgets\backend\models\Positions;
 
 class Widgets extends \yii\db\ActiveRecord {
-
+    public $selection_parameters = '';
+    
     public static function tableName() {
         return '{{%widgets}}';
     }
@@ -123,4 +124,7 @@ class Widgets extends \yii\db\ActiveRecord {
         return $badge;
     }
 
+    public function setSelection_parameters() {
+        return json_decode($this->config);
+    }
 }

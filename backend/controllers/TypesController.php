@@ -45,7 +45,7 @@ class TypesController extends Controller {
         $model = new WidgetsTypes();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Type : {type} created', ['type' => $model->id]));
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Type : {type} created', ['type' => $model->tech_name]));
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
@@ -58,7 +58,7 @@ class TypesController extends Controller {
         $model = $this->findModel($tech_name);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Type : {type} updated', ['type' => $model->id]));
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Type : {type} updated', ['type' => $model->tech_name]));
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [
