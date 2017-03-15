@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]);
             ?>
+            <?= Html::a(Yii::t('widgets', 'Preview'), ['preview', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         </p>
 
         <?=

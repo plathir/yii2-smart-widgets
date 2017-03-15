@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use \yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
-
 ?>
 <div class="smartblog-default-index">
     <div class="box box-danger">
@@ -41,6 +40,16 @@ use kartik\datecontrol\DateControl;
                         'attribute' => 'id',
                     ],
                     [
+                        'class' => 'yii\grid\ActionColumn',
+                        'contentOptions' => ['style' => 'min-width: 20px;'],
+                        'template' => '{my_button1}',
+                        'buttons' => [
+                            'my_button1' => function ($url, $model, $key) {
+                                return Html::a(Yii::t('widgets', '<i class="glyphicon glyphicon-search"></i>'), ['/widgets/default/preview', 'id' => $model->id]);
+                            },
+                        ],
+                    ],
+                    [
                         'attribute' => 'widget_type',
                         'value' => function($model, $key, $index, $widget) {
                             return plathir\widgets\backend\models\WidgetsTypes::findOne($model->widget_type)->widget_name;
@@ -64,7 +73,7 @@ use kartik\datecontrol\DateControl;
                             return $model->publishbadge;
                         },
                         'format' => 'html',
-                        'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'publish', ['0' => Yii::t('widgets','Unpublished'), '1' => Yii::t('widgets','Published')], ['class' => 'form-control', 'prompt' => Yii::t('widgets', 'Select...')]),
+                        'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'publish', ['0' => Yii::t('widgets', 'Unpublished'), '1' => Yii::t('widgets', 'Published')], ['class' => 'form-control', 'prompt' => Yii::t('widgets', 'Select...')]),
                         'contentOptions' => ['style' => 'width: 10%;']
                     ],
                     [
@@ -99,17 +108,16 @@ use kartik\datecontrol\DateControl;
                         ]),
                         'contentOptions' => ['style' => 'width: 12%;']
                     ],
-                [
-                    'class' => 'yii\grid\ActionColumn',
-                    'contentOptions' => ['style' => 'min-width: 80px;'],
-                    'template' => '{my_button}',
-                    'buttons' => [
-                        'my_button' => function ($url, $model, $key) {
-                            return Html::a(Yii::t('widgets', 'Parameters'), ['/widgets/default/updateparams', 'id' => $model->id]);
-                        },
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'contentOptions' => ['style' => 'min-width: 80px;'],
+                        'template' => '{my_button}',
+                        'buttons' => [
+                            'my_button' => function ($url, $model, $key) {
+                                return Html::a(Yii::t('widgets', 'Parameters'), ['/widgets/default/updateparams', 'id' => $model->id]);
+                            },
+                        ],
                     ],
-                ],
-
                     ['class' => 'yii\grid\ActionColumn',
                         'contentOptions' => ['style' => 'min-width: 70px;']
                     ]

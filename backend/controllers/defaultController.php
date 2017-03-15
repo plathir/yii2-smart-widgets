@@ -7,6 +7,7 @@ use yii\web\Controller;
 use \plathir\widgets\backend\models\Widgets;
 use plathir\widgets\backend\models\search\Widgets_s;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 /**
  * @property \plathir\widgets\backend\Module $module
@@ -37,10 +38,29 @@ class DefaultController extends Controller {
 
     public function actionCreate() {
         $model = new Widgets();
-        
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Widget : {id} created ! ', ['id' => $model->id]));
-            return $this->redirect(['index']);
+
+        if ($model->load(Yii::$app->request->post())) {
+            // Get selection_parameters variant from widget type class
+            // write some code here 
+
+            $type_model = \plathir\widgets\backend\models\WidgetsTypes::findOne($model->widget_type);
+
+            $widget_class = $type_model->widget_class;
+            $tmpWidget = new $widget_class();
+            if (property_exists($tmpWidget, 'selection_parameters')) {
+                $selection_parameters = $tmpWidget->selection_parameters;
+                if ($model->config == '') {
+                    $model->config = json_encode($selection_parameters);
+                }
+            }
+            if ($model->save()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Widget : {id} created ! ', ['id' => $model->id]));
+                return $this->redirect(['index']);
+            } else {
+                return $this->render('create', [
+                            'model' => $model
+                ]);
+            }
         } else {
             return $this->render('create', [
                         'model' => $model
@@ -71,14 +91,32 @@ class DefaultController extends Controller {
 
     public function actionDelete($id) {
         if ($this->findModel($id)->delete()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Widget : {id} deleted ! ', ['id' => $model->id]));
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Widget : {id} deleted ! ', ['id' => $id]));
         }
         return $this->redirect(['index']);
     }
 
+    /**
+     * 
+     * @param type $id
+     * @return type
+     */
     public function actionUpdateparams($id) {
         $model = $this->findModel($id);
         $model->selection_parameters = json_decode($model->config);
+        if ($model->selection_parameters == '') {
+
+            $type_model = \plathir\widgets\backend\models\WidgetsTypes::findOne($model->widget_type);
+            $widget_class = $type_model->widget_class;
+            $tmpWidget = new $widget_class();
+            if (property_exists($tmpWidget, 'selection_parameters')) {
+                $selection_parameters = $tmpWidget->selection_parameters;
+                if ($model->config == '') {
+                    $model->selection_parameters = $selection_parameters;
+                }
+            }
+        }
+
         if ($model->load(Yii::$app->request->post())) {
             $newParams = Yii::$app->request->post()['Widgets']['selection_parameters'];
             $model->config = json_encode($newParams);
@@ -97,6 +135,23 @@ class DefaultController extends Controller {
         }
     }
 
+    /**
+     * 
+     * @param type $id
+     */
+    public function actionPreview($id) {
+
+        return $this->render('preview', [
+                    'widget_id' => $id
+        ]);
+    }
+
+    /**
+     * 
+     * @param type $id
+     * @return type
+     * @throws NotFoundHttpException
+     */
     protected function findModel($id) {
         if (($model = Widgets::findOne($id)) !== null) {
             return $model;

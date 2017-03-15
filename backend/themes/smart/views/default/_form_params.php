@@ -22,8 +22,10 @@ use yii\widgets\ActiveForm;
 
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdTypes']]); ?>
         <?php
-        foreach ($model->selection_parameters as $i => $param) {
-            echo $form->field($model, "selection_parameters[$i]")->textInput(['value' => $param])->label($i);
+        if ($model->selection_parameters) {
+            foreach ($model->selection_parameters as $i => $param) {
+                echo $form->field($model, "selection_parameters[$i]")->textInput(['value' => $param])->label($i);
+            }
         }
         ?>
 
