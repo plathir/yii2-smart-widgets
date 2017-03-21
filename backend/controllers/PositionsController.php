@@ -42,7 +42,7 @@ class PositionsController extends Controller {
         $model = new Positions();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {id} created', ['id' => $model->id]));
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {id} created', ['id' => $model->tech_name]));
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
@@ -56,7 +56,7 @@ class PositionsController extends Controller {
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {tech_name} updated', ['id' => $model->id]));
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {tech_name} updated', ['id' => $tech_name]));
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [
@@ -76,7 +76,7 @@ class PositionsController extends Controller {
 
     public function actionDelete($tech_name) {
         if ($this->findModel($tech_name)->delete()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {tech_name} deleted', ['id' => $tech_name]));
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {tech_name} deleted', ['tech_name' => $tech_name]));
         }
         return $this->redirect(['index']);
     }
