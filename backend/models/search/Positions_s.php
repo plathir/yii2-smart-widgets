@@ -40,7 +40,7 @@ class Positions_s extends Positions {
 
         $dataProvider->setSort([
             'attributes' => [
-                'name',
+                'tech_name',
                 'name',
                 'module_name',
                 'publish',
