@@ -15,8 +15,8 @@ class Widgets_s extends Widgets {
      */
     public function rules() {
         return [
-            [['id', 'widget_type', 'publish'], 'integer'],
-            [['name', 'description', 'position' ], 'string'],
+            [['id', 'publish'], 'integer'],
+            [['name', 'widget_type', 'description', 'position' ], 'string'],
             [['created_at', 'updated_at' ], 'integer'],
         ];
     }
@@ -46,11 +46,9 @@ class Widgets_s extends Widgets {
             'publish' => $this->publish ,
         ]);
 
-         $query->andFilterWhere(['like', 'widget_type', $this->widget_type])
-               ->andFilterWhere(['=', 'position', $this->position])
-               ->andFilterWhere(['like', 'description', $this->description]);
-                 
-        
+         $query->andFilterWhere(['=', 'position', $this->position])
+               ->andFilterWhere(['like', 'name', $this->name]);
+                       
         return $dataProvider;
     }
 
