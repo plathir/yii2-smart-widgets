@@ -42,7 +42,7 @@ class PositionsController extends Controller {
         $model = new Positions();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {id} created', ['id' => $model->tech_name]));
+            Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {tech_name} created', ['tech_name' => $model->tech_name]));
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
@@ -55,7 +55,6 @@ class PositionsController extends Controller {
         $model = $this->findModel($tech_name);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
             Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {tech_name} updated', ['id' => $tech_name]));
             return $this->redirect(['index']);
         } else {
