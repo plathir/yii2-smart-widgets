@@ -4,7 +4,9 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use \yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use kartik\date\DatePicker;
 ?>
+
 <div class="smartblog-default-index">
     <div class="box box-danger">
         <div class="box-header with-border">
@@ -78,36 +80,48 @@ use kartik\datecontrol\DateControl;
                     ],
                     [
                         'attribute' => 'created_at',
-                        'format' => ['date', 'php:d-m-Y'],
+                        'format' => ['date', 'php:'.Yii::$app->settings->getSettings('ShortDateFormat') ],
+                        'value' => 'created_at',
                         'filter' =>
-                        DateControl::widget([
+                        DatePicker::widget([
                             'model' => $searchModel,
                             'attribute' => 'created_at',
-                            'name' => 'kartik-date-1',
-                            'value' => 'created_at',
-                            'type' => DateControl::FORMAT_DATE,
-                            'options' => [
-                                'layout' => '{picker}{input}',
+                            'options' => ['placeholder' => 'Enter date ...'],
+                            'removeButton' => false,
+                            'pluginOptions' => [
+                                'autoclose' => true,
+                                'format' => Yii::$app->settings->getSettings('FilterShortDateFormat'),
                             ]
                         ]),
+//                        DateControl::widget([
+//                            'attribute' => 'created_at',
+//                            'name' => 'kartik-date-1',
+//                              'value' => 'created_at',
+//                            'type' => DateControl::FORMAT_DATE,
+//                            'displayFormat' => 'php:d-m-Y',
+//                            'saveFormat' => 'php:d-m-Y',
+//                            'options' => [
+//                                'layout' => '{picker}{input}',
+//                            ]
+//                        ]),
                         'contentOptions' => ['style' => 'width: 12%;']
                     ],
-                    [
-                        'attribute' => 'updated_at',
-                        'format' => ['date', 'php:d-m-Y'],
-                        'filter' =>
-                        DateControl::widget([
-                            'model' => $searchModel,
-                            'attribute' => 'created_at',
-                            'name' => 'kartik-date-2',
-                            'value' => 'created_at',
-                            'type' => DateControl::FORMAT_DATE,
-                            'options' => [
-                                'layout' => '{picker}{input}',
-                            ]
-                        ]),
-                        'contentOptions' => ['style' => 'width: 12%;']
-                    ],
+//                    [
+//                        'attribute' => 'updated_at',
+//                        'format' => ['date', 'php:d-m-Y'],
+//                        'filter' =>
+//                        DateControl::widget([
+//                            'model' => $searchModel,
+//                            'attribute' => 'updated_at',
+//                            'name' => 'kartik-date-2',
+//                            'value' => 'updated_at',
+//                            'type' => DateControl::FORMAT_DATE,
+//                            'options' => [
+//                                'layout' => '{picker}{input}',
+//                            ]
+//                        ]),
+//                        'contentOptions' => ['style' => 'width: 12%;']
+//                    ],
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'contentOptions' => ['style' => 'min-width: 80px;'],

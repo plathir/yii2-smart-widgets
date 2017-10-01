@@ -2,11 +2,10 @@
 
 namespace plathir\widgets\backend\models\search;
 
-
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use plathir\widgets\backend\models\Widgets as Widgets;
-
+use yii;
 
 class Widgets_s extends Widgets {
 
@@ -16,11 +15,11 @@ class Widgets_s extends Widgets {
     public function rules() {
         return [
             [['id', 'publish'], 'integer'],
-            [['name', 'widget_type', 'description', 'position' ], 'string'],
-            [['created_at', 'updated_at' ], 'integer'],
+            [['name', 'widget_type', 'description', 'position'], 'string'],
+            //       [['created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at'], 'date', 'format' => Yii::$app->settings->getSettings('ShortDateFormat'), 'message' => '{attribute} must be DD/MM/YYYY format.'],
         ];
     }
-
 
     /**
      * Creates data provider instance with search query applied
@@ -39,16 +38,21 @@ class Widgets_s extends Widgets {
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
-        
+
         $query->andFilterWhere([
             'id' => $this->id,
             'widget_type' => $this->widget_type,
-            'publish' => $this->publish ,
+            'publish' => $this->publish,
+//            'created_at' => $this->created_at,
+//            'updated_at' => $this->updated_at,
         ]);
 
-         $query->andFilterWhere(['=', 'position', $this->position])
-               ->andFilterWhere(['like', 'name', $this->name]);
-                       
+        $query->andFilterWhere(['=', 'position', $this->position])
+                ->andFilterWhere(['like', 'name', $this->name])
+                ->andFilterWhere(['like', "( FROM_UNIXTIME(`created_at`, '". Yii::$app->settings->getSettings('DBShortDateFormat')." %h:%i:%s %p' ))", $this->created_at]);
+                //->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`created_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->created_at]);
+//                ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`updated_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->updated_at]);
+
         return $dataProvider;
     }
 
