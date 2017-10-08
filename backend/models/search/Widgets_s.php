@@ -16,7 +16,6 @@ class Widgets_s extends Widgets {
         return [
             [['id', 'publish'], 'integer'],
             [['name', 'widget_type', 'description', 'position'], 'string'],
-            //       [['created_at', 'updated_at'], 'integer'],
             [['created_at', 'updated_at'], 'date', 'format' => Yii::$app->settings->getSettings('ShortDateFormat'), 'message' => '{attribute} must be DD/MM/YYYY format.'],
         ];
     }
@@ -43,15 +42,12 @@ class Widgets_s extends Widgets {
             'id' => $this->id,
             'widget_type' => $this->widget_type,
             'publish' => $this->publish,
-//            'created_at' => $this->created_at,
-//            'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['=', 'position', $this->position])
                 ->andFilterWhere(['like', 'name', $this->name])
-                ->andFilterWhere(['like', "( FROM_UNIXTIME(`created_at`, '". Yii::$app->settings->getSettings('DBShortDateFormat')." %h:%i:%s %p' ))", $this->created_at]);
-                //->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`created_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->created_at]);
-//                ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`updated_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->updated_at]);
+                ->andFilterWhere(['like', "( FROM_UNIXTIME(`created_at`, '". Yii::$app->settings->getSettings('DBShortDateFormat')." %h:%i:%s %p' ))", $this->created_at])
+                ->andFilterWhere(['like', "( FROM_UNIXTIME(`updated_at`, '". Yii::$app->settings->getSettings('DBShortDateFormat')." %h:%i:%s %p' ))", $this->updated_at]);
 
         return $dataProvider;
     }

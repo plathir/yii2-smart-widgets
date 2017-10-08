@@ -2,11 +2,14 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use \yii\helpers\ArrayHelper;
-use kartik\datecontrol\DateControl;
-use kartik\date\DatePicker;
-?>
 
+?>
+<?php
+//echo Html::tag('span', 'tooltip', [
+//    'title' => 'This is a test tooltip',
+//    'data-toggle' => 'tooltip',
+//]);
+?>
 <div class="smartblog-default-index">
     <div class="box box-danger">
         <div class="box-header with-border">
@@ -17,8 +20,8 @@ use kartik\date\DatePicker;
             </div>
         </div><!-- /.box-header -->
         <div class="box-body">
-            <?= Html::a('<i class="fa fa-th-list"></i>' . Yii::t('widgets', 'Widgets Types'), ['/widgets/types'], ['class' => 'btn btn-app']) ?>
-            <?= Html::a('<i class="fa fa-th-list"></i>' . Yii::t('widgets', 'Positions'), ['/widgets/positions'], ['class' => 'btn btn-app']) ?>
+            <?= Html::a('<i class="fa fa-th-list"></i>' . Yii::t('widgets', 'Widgets Types'), ['/widgets/types'], ['class' => 'btn btn-app btn-loader']) ?>
+            <?= Html::a('<i class="fa fa-th-list"></i>' . Yii::t('widgets', 'Positions'), ['/widgets/positions'], ['class' => 'btn btn-app btn-loader']) ?>
         </div>
     </div>
 
@@ -31,7 +34,12 @@ use kartik\date\DatePicker;
             </div>
         </div><!-- /.box-header -->
         <div class="box-body">
-            <?= Html::a(Yii::t('widgets', 'Create new widget'), ['create'], ['class' => 'btn btn-success']) ?>
+            <?=
+            Html::a(Html::tag('span', 'Create', [
+                        'title' => Yii::t('widgets', 'Create New Widget'),
+                        'data-toggle' => 'tooltip',
+                    ]), ['create'], ['class' => 'btn btn-success btn-flat btn-loader'])
+            ?>
 
             <?=
             GridView::widget([
@@ -40,6 +48,7 @@ use kartik\date\DatePicker;
                 'columns' => [
                     [
                         'attribute' => 'id',
+                        'contentOptions' => ['style' => 'width: 60px;'],
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
@@ -47,7 +56,23 @@ use kartik\date\DatePicker;
                         'template' => '{my_button1}',
                         'buttons' => [
                             'my_button1' => function ($url, $model, $key) {
-                                return Html::a(Yii::t('widgets', '<i class="glyphicon glyphicon-search"></i>'), ['/widgets/default/preview', 'id' => $model->id]);
+                                return Html::a(Html::tag('span', '<i class="glyphicon glyphicon-search btn-loader"></i>', [
+                                                    'title' => Yii::t('widgets', 'Preview'),
+                                                    'data-toggle' => 'tooltip',
+                                                ]), ['/widgets/default/preview', 'id' => $model->id]);
+                            },
+                        ],
+                    ],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'contentOptions' => ['style' => 'min-width: 20px;'],
+                        'template' => '{my_button}',
+                        'buttons' => [
+                            'my_button' => function ($url, $model, $key) {
+                                return Html::a(Html::tag('span', '<i class="fa fa-cog btn-loader"></i>', [
+                                                    'title' => Yii::t('widgets', 'Edit Parameters'),
+                                                    'data-toggle' => 'tooltip',
+                                                ]), ['/widgets/default/updateparams', 'id' => $model->id]);
                             },
                         ],
                     ],
@@ -80,60 +105,22 @@ use kartik\date\DatePicker;
                     ],
                     [
                         'attribute' => 'created_at',
-                        'format' => ['date', 'php:'.Yii::$app->settings->getSettings('ShortDateFormat') ],
+                        'format' => ['date', 'php:' . Yii::$app->settings->getSettings('ShortDateFormat')],
                         'value' => 'created_at',
-                        'filter' =>
-                        DatePicker::widget([
-                            'model' => $searchModel,
-                            'attribute' => 'created_at',
-                            'options' => ['placeholder' => 'Enter date ...'],
-                            'removeButton' => false,
-                            'pluginOptions' => [
-                                'autoclose' => true,
-                                'format' => Yii::$app->settings->getSettings('FilterShortDateFormat'),
-                            ]
-                        ]),
-//                        DateControl::widget([
-//                            'attribute' => 'created_at',
-//                            'name' => 'kartik-date-1',
-//                              'value' => 'created_at',
-//                            'type' => DateControl::FORMAT_DATE,
-//                            'displayFormat' => 'php:d-m-Y',
-//                            'saveFormat' => 'php:d-m-Y',
-//                            'options' => [
-//                                'layout' => '{picker}{input}',
-//                            ]
-//                        ]),
+                        'filter' => \backend\widgets\SmartDate::widget(['type' => 'filterShortDate', 'model' => $searchModel, 'attribute' => 'created_at']),
                         'contentOptions' => ['style' => 'width: 12%;']
                     ],
-//                    [
-//                        'attribute' => 'updated_at',
-//                        'format' => ['date', 'php:d-m-Y'],
-//                        'filter' =>
-//                        DateControl::widget([
-//                            'model' => $searchModel,
-//                            'attribute' => 'updated_at',
-//                            'name' => 'kartik-date-2',
-//                            'value' => 'updated_at',
-//                            'type' => DateControl::FORMAT_DATE,
-//                            'options' => [
-//                                'layout' => '{picker}{input}',
-//                            ]
-//                        ]),
-//                        'contentOptions' => ['style' => 'width: 12%;']
-//                    ],
                     [
-                        'class' => 'yii\grid\ActionColumn',
-                        'contentOptions' => ['style' => 'min-width: 80px;'],
-                        'template' => '{my_button}',
-                        'buttons' => [
-                            'my_button' => function ($url, $model, $key) {
-                                return Html::a(Yii::t('widgets', 'Parameters'), ['/widgets/default/updateparams', 'id' => $model->id]);
-                            },
-                        ],
+                        'attribute' => 'updated_at',
+                        'format' => ['date', 'php:' . Yii::$app->settings->getSettings('ShortDateFormat')],
+                        'value' => 'updated_at',
+                        'filter' => \backend\widgets\SmartDate::widget(['type' => 'filterShortDate', 'model' => $searchModel, 'attribute' => 'updated_at']),
+                        'contentOptions' => ['style' => 'width: 12%;']
                     ],
                     ['class' => 'yii\grid\ActionColumn',
-                        'contentOptions' => ['style' => 'min-width: 70px;']
+                        'contentOptions' => ['style' => 'min-width: 70px;',
+                            'class'=> 'btn-loader',
+                            ]
                     ]
                 ]
             ]);
