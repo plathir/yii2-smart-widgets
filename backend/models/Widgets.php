@@ -11,7 +11,7 @@ use plathir\widgets\backend\models\Positions;
 
 class Widgets extends \yii\db\ActiveRecord {
     public $selection_parameters = '';
-    
+    public $created_at1 = '';
     public static function tableName() {
         return '{{%widgets}}';
     }

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\widgets\SwitchInput;
 use kartik\datecontrol\DateControl;
+use \backend\widgets\SmartDate;
 ?>
 
 <div class="box box-info">
@@ -39,37 +40,24 @@ use kartik\datecontrol\DateControl;
         <?= $form->field($model, 'publish')->widget(SwitchInput::classname(), []); ?>
         <?= $form->field($model, 'config')->textarea(['rows' => 10]); ?>
         <?= $form->field($model, 'rules')->textarea(['rows' => 4]); ?>
+        <?= $form->field($model, 'created_at')->widget(SmartDate::classname(), ['type' => 'inputDateTime', 'model' => $model, 'attribute' => 'created_at']); ?>
+        <?= $form->field($model, 'updated_at')->widget(SmartDate::classname(), ['type' => 'inputDateTime', 'model' => $model, 'attribute' => 'created_at']); ?>
 
         <?php
-        echo $form->field($model, 'created_at')->widget(DateControl::classname(), [
-            'type' => DateControl::FORMAT_DATETIME,
-            'ajaxConversion' => true,
-            'saveFormat' => 'php:U',
-            'options' => [
-                'layout' => '{picker}{input}',
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'todayBtn' => true,
-                ]
-            ]
-        ]);
-        ?>
-        
-        <?php
-        echo $form->field($model, 'updated_at')->widget(DateControl::classname(), [
-            'type' => DateControl::FORMAT_DATETIME,
-            'ajaxConversion' => true,
-            'saveFormat' => 'php:U',
-            'options' => [
-                'layout' => '{picker}{input}',
-                'pluginOptions' => [
-                    'autoclose' => true,
-                    'todayBtn' => true,
-                ]
-            ]
-        ]);
+//        echo $form->field($model, 'updated_at')->widget(DateControl::classname(), [
+//            'type' => DateControl::FORMAT_DATETIME,
+//            'ajaxConversion' => true,
+//            'saveFormat' => 'php:U',
+//            'options' => [
+//                'layout' => '{picker}{input}',
+//                'pluginOptions' => [
+//                    'autoclose' => true,
+//                    'todayBtn' => true,
+//                ]
+//            ]
+//        ]);
         ?>        
-     
+
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>' . Yii::t('widgets', ' Create') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>' . Yii::t('widgets', ' Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
