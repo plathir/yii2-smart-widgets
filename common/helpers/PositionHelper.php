@@ -44,7 +44,8 @@ class PositionHelper {
 
                 return $html_widget;
             } else {
-                return 'No Sort Order';
+                //return 'No Sort Order';
+                return '';
             }
         }
     }
@@ -71,9 +72,9 @@ class PositionHelper {
             $index = array_search($widget->id, $PositionSortOrder);
 
             if ($index !== false) {
-                echo 'Found <br>';
+           //     echo 'Found <br>';
             } else {
-                echo 'Not Found  ! add to array <br>';
+           //     echo 'Not Found  ! add to array <br>';
                 $PositionSortOrder[] = $widget->id;
             }
         }
@@ -85,7 +86,7 @@ class PositionHelper {
             } else {
 
                 if ($temp_widget->position <> $position_tech_name) {
-                    echo 'In';
+               //     echo 'In';
                     $PositionSortOrder = PositionHelper::my_remove_array_item($PositionSortOrder, $temp_widget_id);
                 }
             }
