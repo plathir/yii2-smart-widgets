@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\sortinput\SortableInput;
+use plathir\widgets\common\helpers\WidgetHelper;
+use plathir\widgets\backend\models\Widgets;
+
 ?>
 
 <div class="box box-info">
@@ -19,7 +22,7 @@ use kartik\sortinput\SortableInput;
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdPositions']]); ?>
         <?php
         $array_items = (explode(',', $model->widget_sort_order));
-        $widgeHelper = new plathir\widgets\common\helpers\WidgetHelper();
+        $widgeHelper = new WidgetHelper();
         $style = '#opacity-div {
                   opacity: 0.8;
                   filter : alpha(opacity=80); 
@@ -31,7 +34,7 @@ use kartik\sortinput\SortableInput;
         foreach ($array_items as $item) {
             // in this place find description of widget
             // ...
-            $widget = plathir\widgets\backend\models\Widgets::findOne($item);
+            $widget = Widgets::findOne($item);
             $newarray[$item]['content'] = '<div style="max-height:200px;overflow:hidden; "> <strong>' . $item . '. ' . $widget->name . '</strong>' . $widget->publishbadge . '<br>' . '<div id="opacity-div">' . $widgeHelper->LoadWidget($widget) . '</div></div>';
         }
 
