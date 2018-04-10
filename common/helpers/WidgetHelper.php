@@ -19,18 +19,22 @@ class WidgetHelper {
 
     public function LoadWidget($WidgetID) {
         $Widget = \plathir\widgets\backend\models\widgets::findOne($WidgetID);
-        if ($Widget->publish == 1) {
-            $WdgetType = \plathir\widgets\backend\models\WidgetsTypes::findOne($Widget->widget_type);
-            $widget_class = $WdgetType->widget_class;
-            $tmpWidget = new $widget_class();
-            $config = json_decode($Widget->config, true);
-            $config["title"] = $Widget->name;
-            $newWidget = $tmpWidget::widget($config);
-            $widget_html = $newWidget;
+        if ($Widget) {
+            if ($Widget->publish == 1) {
+                $WdgetType = \plathir\widgets\backend\models\WidgetsTypes::findOne($Widget->widget_type);
+                $widget_class = $WdgetType->widget_class;
+                $tmpWidget = new $widget_class();
+                $config = json_decode($Widget->config, true);
+                $config["title"] = $Widget->name;
+                $newWidget = $tmpWidget::widget($config);
+                $widget_html = $newWidget;
 
-            return $widget_html;
+                return $widget_html;
+            } else {
+                return '';
+            }
         } else {
-            return '';
+          //  echo $WidgetID;
         }
     }
 
