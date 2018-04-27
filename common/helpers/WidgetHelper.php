@@ -18,7 +18,7 @@ class WidgetHelper {
      */
 
     public function LoadWidget($WidgetID) {
-        $Widget = \plathir\widgets\backend\models\widgets::findOne($WidgetID);
+        $Widget = \plathir\widgets\backend\models\Widgets::findOne($WidgetID);
         if ($Widget) {
             if ($Widget->publish == 1) {
                 $WdgetType = \plathir\widgets\backend\models\WidgetsTypes::findOne($Widget->widget_type);
