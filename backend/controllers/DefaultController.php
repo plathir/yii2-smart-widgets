@@ -26,6 +26,11 @@ class DefaultController extends Controller {
         ];
     }
 
+    /**
+     * 
+     * @return type
+     */
+    
     public function actionIndex() {
         $searchModel = new Widgets_s();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
