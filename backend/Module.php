@@ -1,6 +1,4 @@
-
 <?php
-
 namespace plathir\widgets\backend;
 
 use Yii;
