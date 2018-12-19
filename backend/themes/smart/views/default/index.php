@@ -22,6 +22,7 @@ use yii\grid\GridView;
         <div class="box-body">
             <?= Html::a('<i class="fa fa-th-list"></i>' . Yii::t('widgets', 'Widgets Types'), ['/widgets/types'], ['class' => 'btn btn-app btn-loader']) ?>
             <?= Html::a('<i class="fa fa-th-list"></i>' . Yii::t('widgets', 'Positions'), ['/widgets/positions'], ['class' => 'btn btn-app btn-loader']) ?>
+            <?= Html::a('<i class="fa fa-th-list"></i>' . Yii::t('widgets', 'Layouts'), ['/widgets/layouts'], ['class' => 'btn btn-app btn-loader']) ?>
         </div>
     </div>
 

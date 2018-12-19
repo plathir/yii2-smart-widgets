@@ -46,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'tech_name',
                 'name',
                 'path',
+                'fullpath',
                 'html_layout',
                 'environment',
                 'publishbadge:html'

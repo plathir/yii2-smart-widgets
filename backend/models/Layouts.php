@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\widgets\backend\models;
 
 use yii;
@@ -14,10 +13,10 @@ class Layouts extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['tech_name'], 'unique'],
-            [['tech_name'], 'required' ],
+            [['tech_name'], 'required'],
             [['name', 'module_name'], 'required'],
-            [['html_layout'], 'required' ],
-            [['path'], 'required' ],
+            [['html_layout'], 'required'],
+            [['path'], 'required'],
             [['publish'], 'integer']
         ];
     }
@@ -25,16 +24,16 @@ class Layouts extends \yii\db\ActiveRecord {
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
-        return [
-            'tech_name' => Yii::t('widgets', 'Layout Technical Name'),
-            'name' => Yii::t('widgets', 'Name'),
-            'publish' => Yii::t('widgets', 'Publish'),
-            'environment' => Yii::t('widgets', 'Environment'),
-            'module_name' => Yii::t('widgets', 'Module Name'),
-            'publishbadge' => Yii::t('widgets', 'Publish'),
-        ];
-    }
+//    public function attributeLabels() {
+//        return [
+//            'tech_name' => Yii::t('widgets', 'Layout Technical Name'),
+//            'name' => Yii::t('widgets', 'Name'),
+//            'publish' => Yii::t('widgets', 'Publish'),
+//            'environment' => Yii::t('widgets', 'Environment'),
+//            'module_name' => Yii::t('widgets', 'Module Name'),
+//            'publishbadge' => Yii::t('widgets', 'Publish'),
+//        ];
+//    }
 
     public function getModuleslist() {
 
@@ -67,6 +66,10 @@ class Layouts extends \yii\db\ActiveRecord {
         }
 
         return $badge;
+    }
+
+    public function getFullpath() {
+        return yii::getAlias($this->path);
     }
 
 }

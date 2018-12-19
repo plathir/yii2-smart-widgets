@@ -33,7 +33,8 @@ use lav45\aceEditor\AceEditorWidget;
 
        // echo $form->field($model, 'html_layout')->textarea(['rows' => 6]);
         echo $form->field($model, 'html_layout')->widget(AceEditorWidget::className(), [
-            'theme' => 'xcode',
+            //'theme' => 'xcode',
+          //  'theme' => 'twilight', // dark theme
             'mode' => 'html',
             'showPrintMargin' => false,
             'fontSize' => 14,
