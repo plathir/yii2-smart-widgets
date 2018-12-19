@@ -14,7 +14,7 @@ use Yii;
 
 class WidgetHelper {
     /*
-     * Load Position
+     * Load Widget
      */
 
     public function LoadWidget($WidgetID) {
