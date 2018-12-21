@@ -16,43 +16,59 @@ use lav45\aceEditor\AceEditorWidget;
 
     </div><!-- /.box-header -->
     <div class="box-body">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <?php
+            if ($model->moduleslist) {
+                $newItems = \yii\helpers\ArrayHelper::map($model->moduleslist, 'module_name', 'module_name');
+            } else {
+                $newItems = '';
+            }
+            ?>
 
-        <?php
-        if ($model->moduleslist) {
-            $newItems = \yii\helpers\ArrayHelper::map($model->moduleslist, 'module_name', 'module_name');
-        } else {
-            $newItems = '';
-        }
-        ?>
+            <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdLayouts']]); ?>
+            <?php
+            echo $form->field($model, 'tech_name');
+            echo $form->field($model, 'name');
+            echo $form->field($model, 'path');
+            echo $model->fullpath;
 
-        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'name' => 'UpdLayouts']]); ?>
-        <?php
-        echo $form->field($model, 'tech_name');
-        echo $form->field($model, 'name');
-        echo $form->field($model, 'path');
+            // echo $form->field($model, 'html_layout')->textarea(['rows' => 6]);
+            echo $form->field($model, 'html_layout')->widget(AceEditorWidget::className(), [
+                //'theme' => 'xcode',
+                //  'theme' => 'twilight', // dark theme
+                'mode' => 'html',
+                'showPrintMargin' => false,
+                'fontSize' => 14,
+                'height' => 300,
+                'options' => [
+                    'style' => 'border: 1px solid #ccc; border-radius: 4px;'
+                ]
+            ]);
 
-       // echo $form->field($model, 'html_layout')->textarea(['rows' => 6]);
-        echo $form->field($model, 'html_layout')->widget(AceEditorWidget::className(), [
-            //'theme' => 'xcode',
-          //  'theme' => 'twilight', // dark theme
-            'mode' => 'html',
-            'showPrintMargin' => false,
-            'fontSize' => 14,
-            'height' => 300,
-            'options' => [
-                'style' => 'border: 1px solid #ccc; border-radius: 4px;'
-            ]
-        ]);
+            echo $form->field($model, 'module_name')->dropDownList($newItems);
+            echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []);
+            
+            ?> 
 
-        echo $form->field($model, 'module_name')->dropDownList($newItems);
-        echo $form->field($model, 'publish')->widget(SwitchInput::classname(), []);
-        ?> 
+            <div class="form-group">
+                <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>' . Yii::t('widgets', 'Create') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('widgets', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            </div>
 
-        <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>' . Yii::t('widgets', 'Create') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('widgets', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?php ActiveForm::end(); ?>   
+        </div>     
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <h4>Available Positions</h4>
+            <hr>
+            <table>
+                <?php
+                foreach ($positions as $position) {
+                   $position_link =  Html::a($position->name, ['/widgets/positions/view', 'tech_name' => $position->tech_name]);
+                    echo '<tr>';
+                    echo '<td>{' . $position->tech_name . '}</td><td>' . $position_link . '</td>';
+                    echo '</tr>';
+                };
+                ?>
+            </table>
         </div>
-
-        <?php ActiveForm::end(); ?>     
-
     </div>
 </div>

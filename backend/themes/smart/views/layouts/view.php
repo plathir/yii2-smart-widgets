@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'name',
                 'path',
                 'fullpath',
-                'html_layout',
+                'html_layout:html',
                 'environment',
                 'publishbadge:html'
             ]

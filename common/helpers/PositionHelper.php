@@ -38,7 +38,7 @@ class PositionHelper {
                 $widgets_array = explode(',', $sort_order->widget_sort_order);
 
                 foreach ($widgets_array as $widget) {
-
+                    
                     $html_widget .= $widgetHelper->LoadWidget($widget);
                 }
 

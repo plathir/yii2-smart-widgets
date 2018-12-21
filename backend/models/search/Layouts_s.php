@@ -15,11 +15,9 @@ class Layouts_s extends Layouts {
      */
     public function rules() {
         return [
-            [['tech_name'], 'unique'],
-            [['tech_name'], 'required'],
-            [['name', 'module_name'], 'required'],
-            [['html_layout'], 'required'],
-            [['path'], 'required'],
+            [['tech_name'], 'string'],
+            [['name', 'module_name'], 'string'],
+            [['environment'], 'safe'],
             [['publish'], 'integer']
         ];
     }

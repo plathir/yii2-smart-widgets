@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\widgets\common\helpers;
 
 use plathir\widgets\backend\models\Positions;
@@ -28,13 +27,12 @@ class WidgetHelper {
                 $config["title"] = $Widget->name;
                 $newWidget = $tmpWidget::widget($config);
                 $widget_html = $newWidget;
-
                 return $widget_html;
             } else {
                 return '';
             }
         } else {
-          //  echo $WidgetID;
+            //  echo $WidgetID;
         }
     }
 

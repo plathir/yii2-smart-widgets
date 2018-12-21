@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\widgets\backend\controllers;
 
 use yii;
@@ -9,6 +8,7 @@ use plathir\widgets\backend\models\search\Layouts_s;
 use yii\filters\VerbFilter;
 use plathir\widgets\backend\models\Widgets;
 use plathir\widgets\common\helpers\PositionHelper;
+use plathir\widgets\backend\models\Positions;
 
 /**
  * @property \plathir\widgets\backend\Module $module
@@ -45,8 +45,10 @@ class LayoutsController extends Controller {
             Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {tech_name} created', ['tech_name' => $model->tech_name]));
             return $this->redirect(['index']);
         } else {
+            $positions = Positions::findAll(['publish' => 1]);
             return $this->render('create', [
-                        'model' => $model
+                        'model' => $model,
+                        'positions' => $positions
             ]);
         }
     }
@@ -58,8 +60,11 @@ class LayoutsController extends Controller {
             Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {tech_name} updated', ['id' => $tech_name]));
             return $this->redirect(['index']);
         } else {
+            
+            $positions = Positions::findAll(['publish' => 1]);
             return $this->render('update', [
-                        'model' => $model
+                        'model' => $model,
+                        'positions' => $positions
             ]);
         }
     }
