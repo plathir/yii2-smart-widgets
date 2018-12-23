@@ -30,7 +30,7 @@ use lav45\aceEditor\AceEditorWidget;
             echo $form->field($model, 'tech_name');
             echo $form->field($model, 'name');
             echo $form->field($model, 'path');
-            echo $model->fullpath;
+            //echo $model->fullpath;
 
             // echo $form->field($model, 'html_layout')->textarea(['rows' => 6]);
             echo $form->field($model, 'html_layout')->widget(AceEditorWidget::className(), [

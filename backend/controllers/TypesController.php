@@ -13,7 +13,11 @@ use yii\filters\VerbFilter;
  *
  */
 class TypesController extends Controller {
-
+    
+        public function __construct($id, $module) {
+        parent::__construct($id, $module);
+                $this->layout = "main";
+    }
     public function init() {
         parent::init();
         #add your logic: read the cookie and then set the language

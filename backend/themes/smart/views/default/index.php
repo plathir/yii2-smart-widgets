@@ -11,20 +11,7 @@ use yii\grid\GridView;
 //]);
 ?>
 <div class="smartblog-default-index">
-    <div class="box box-danger">
-        <div class="box-header with-border">
-            <h3 class="box-title"><?= Yii::t('widgets', 'Widgets') ?></h3>
-            <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-            </div>
-        </div><!-- /.box-header -->
-        <div class="box-body">
-            <?= Html::a('<i class="fa fa-th-list"></i>' . Yii::t('widgets', 'Widgets Types'), ['/widgets/types'], ['class' => 'btn btn-app btn-loader']) ?>
-            <?= Html::a('<i class="fa fa-th-list"></i>' . Yii::t('widgets', 'Positions'), ['/widgets/positions'], ['class' => 'btn btn-app btn-loader']) ?>
-            <?= Html::a('<i class="fa fa-th-list"></i>' . Yii::t('widgets', 'Layouts'), ['/widgets/layouts'], ['class' => 'btn btn-app btn-loader']) ?>
-        </div>
-    </div>
+
 
     <div class="box box-info">
         <div class="box-header with-border">
