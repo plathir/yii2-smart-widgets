@@ -28,9 +28,13 @@ use plathir\widgets\common\helpers\LayoutHelper;
                         $helper = new LayoutHelper();
                         $val = $model->tech_name;
                         $positions = $helper->FindPositions($model->html_layout);
-                        $val_positions = '';
+                        $val_positions = Yii::t('widgets', '<br><i><u>Positions </u>: </i>');
                         foreach ($positions as $position) {
-                            $val_positions .= '<br>'.Html::a('<span class="label label-primary">' .$position.  '</span>', ['/widgets/positions/view', 'tech_name' => $position]);
+                            if ($position == 'CONTENT') {
+                                $val_positions .= '<br><span class="label label-primary">' . $position . '</span>';
+                            } else {
+                                $val_positions .= '<br>' . Html::a('<span class="label label-primary">' . $position . '</span>', ['/widgets/positions/view', 'tech_name' => $position]);
+                            }
                         }
                         return '<strong>' . $val . '</strong>' . $val_positions;
                     },
