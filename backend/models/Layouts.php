@@ -3,6 +3,7 @@ namespace plathir\widgets\backend\models;
 
 use yii;
 use \plathir\widgets\common\helpers\WidgetHelper;
+use \plathir\widgets\common\helpers\LayoutHelper;
 
 class Layouts extends \yii\db\ActiveRecord {
 
@@ -72,4 +73,8 @@ class Layouts extends \yii\db\ActiveRecord {
         return yii::getAlias($this->path);
     }
 
+    public function getPositions() {
+     $helper = new LayoutHelper();
+     return $helper->FindPositions($this->html_layout);
+    }
 }

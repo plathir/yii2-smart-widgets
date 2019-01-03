@@ -21,7 +21,7 @@ class LayoutHelper {
         $layouts = Layouts::find()->All();
         foreach ($layouts as $layout) {
             if ($layout->fullpath == $fname) {
-                $positions = $this->FindParameters($layout->html_layout);
+                $positions = $this->FindPositions($layout->html_layout);
                 $full_html_layout = $layout->html_layout;
                 foreach ($positions as $position) {
 
@@ -39,7 +39,7 @@ class LayoutHelper {
         }
     }
 
-    public function FindParameters($layout) {
+    public function FindPositions($layout) {
         preg_match_all('/{(.*?)}/s', $layout, $matches);
         return $matches[1];
     }

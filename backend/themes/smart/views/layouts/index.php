@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use \yii\helpers\ArrayHelper;
+use plathir\widgets\common\helpers\LayoutHelper;
 ?>
 
 <div class="box box-info">
@@ -23,6 +24,17 @@ use \yii\helpers\ArrayHelper;
             'columns' => [
                 [
                     'attribute' => 'tech_name',
+                    'value' => function($model) {
+                        $helper = new LayoutHelper();
+                        $val = $model->tech_name;
+                        $positions = $helper->FindPositions($model->html_layout);
+                        $val_positions = '';
+                        foreach ($positions as $position) {
+                            $val_positions .= '<br>'.Html::a('<span class="label label-primary">' .$position.  '</span>', ['/widgets/positions/view', 'tech_name' => $position]);
+                        }
+                        return '<strong>' . $val . '</strong>' . $val_positions;
+                    },
+                    'format' => 'raw',
                 ],
                 [
                     'attribute' => 'name',
@@ -47,7 +59,6 @@ use \yii\helpers\ArrayHelper;
                     'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'publish', ['0' => Yii::t('widgets', 'Unpublished'), '1' => Yii::t('widgets', 'Published')], ['class' => 'form-control', 'prompt' => Yii::t('widgets', 'Select...')]),
                     'contentOptions' => ['style' => 'width: 10%;']
                 ],
-
                 ['class' => 'yii\grid\ActionColumn',
                     'template' => '{view}{update}{delete}',
                     'contentOptions' => ['style' => 'min-width: 80px;'],
