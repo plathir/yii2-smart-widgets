@@ -28,7 +28,7 @@ class PositionHelper {
             $PositionTechName = $position->tech_name;
             // Display Position name before displays widgets
             if ($display_position === 'true') {
-                $html_widget = $position->name;
+                $html_widget = '<i><u>Position: </u>'.$position->tech_name .'</i>';
             } else {
                 $html_widget = '';
             }
