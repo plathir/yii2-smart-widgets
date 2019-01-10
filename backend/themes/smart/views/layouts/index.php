@@ -5,6 +5,8 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 use \yii\helpers\ArrayHelper;
 use plathir\widgets\common\helpers\LayoutHelper;
+use yii\bootstrap\Tabs;
+use \plathir\widgets\common\helpers\WidgetHelper;
 ?>
 
 <div class="box box-info">
@@ -17,7 +19,35 @@ use plathir\widgets\common\helpers\LayoutHelper;
     </div><!-- /.box-header -->
     <div class="box-body">
         <?= Html::a(Yii::t('widgets', 'Create new Layout'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?=
+        <br>
+        <br>
+        <?php
+        $widgetHelper = new WidgetHelper();
+        $ListModules = $widgetHelper->getListOfModules();
+        $items_frontend = [];
+        $items_backend = [];
+        foreach ($ListModules as $ModuleName) {
+            if ($ModuleName["env"] == 'frontend') {
+                $items_frontend[] = ['label' => $ModuleName["real_name"],
+                    'content' => '<br>' . $ModuleName["module_name"] . ' Content',
+                ];
+            }
+            if ($ModuleName["env"] == 'backend') {
+                $items_backend[] = ['label' => $ModuleName["real_name"],
+                    'content' => '<br>' . $ModuleName["module_name"] . ' Content',
+                ];
+            }
+        }
+        ?>
+
+
+
+
+        <?php
+        ?>
+        <br>
+        <?php
+        echo
         GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
@@ -103,6 +133,25 @@ use plathir\widgets\common\helpers\LayoutHelper;
             ]
         ]);
         ?>
+
+
+        <div id="user_tabs" class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#frontend" data-toggle="tab"><i class="fa fa-user"></i> <?= Yii::t('widgets', 'Frontend') ?></a></li>
+                <li><a href="#backend" data-toggle="tab"><i class="fa fa-navicon"></i> <?= Yii::t('widgets', 'Backend') ?></a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="active tab-pane" id="frontend">
+                    <?= Tabs::widget(['items' => $items_frontend]); ?>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="backend">
+                    <?= Tabs::widget(['items' => $items_backend]); ?>
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+        </div>        
 
 
     </div>

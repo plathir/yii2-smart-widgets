@@ -46,6 +46,8 @@ class WidgetHelper {
                 $key_h = $key_h + 1;
                 $newItems[$key_h]['id'] = $key_h;
                 $newItems[$key_h]['module_name'] = 'frontend-' . $value;
+                $newItems[$key_h]['real_name'] = $value;
+                $newItems[$key_h]['env'] = 'frontend';
             }
         }
 
@@ -55,6 +57,8 @@ class WidgetHelper {
                 $key_h = $key_h + 1;
                 $newItems[$key_h]['id'] = $key_h;
                 $newItems[$key_h]['module_name'] = 'backend-' . $value;
+                $newItems[$key_h]['real_name'] = $value;
+                $newItems[$key_h]['env'] = 'backend';
             }
         }
         return $newItems;
