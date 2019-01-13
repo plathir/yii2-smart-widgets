@@ -39,6 +39,7 @@ use \plathir\widgets\common\helpers\WidgetHelper;
                         'dataProvider' => $searchModel->search($h_params[$ModuleName["env"]][$ModuleName["module_name"]]),
                         'showOnEmpty' => false,
                         'emptyText' => 'NoData',
+                        
                         'columns' => [
                             [
                                 'attribute' => 'tech_name',
@@ -111,7 +112,9 @@ use \plathir\widgets\common\helpers\WidgetHelper;
             if (strpos($grid, 'NoData') == false) {
                 if ($ModuleName["env"] == 'frontend') {
                     $items_frontend[] = ['label' => '<i class="fa fa-gear"></i>&nbsp' . $ModuleName["real_name"],
-                        'content' => '<br>' . $grid];
+                        'content' => '<br>' . $grid,
+                        'options' => ['id' => $ModuleName["module_name"]],
+                        ];
                 }
 
                 if ($ModuleName["env"] == 'backend') {
