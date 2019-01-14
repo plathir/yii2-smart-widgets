@@ -62,8 +62,8 @@ use \plathir\widgets\common\helpers\WidgetHelper;
                                 'attribute' => 'name',
                                 'value' => function($model) {
                                     return '<h4>'.$model->name . '</h4><i><u>Path :</u> ' . $model->path . '</i>'.
-                                            '<br><i><u>Preview :</u></i><br>';
-                             //               $model->html_layout;
+                                            '<br><i><u>Preview :</u></i><br>'.
+                                            $model->html_layout;
                                 },
                                 'format' => 'raw'
                             ],
