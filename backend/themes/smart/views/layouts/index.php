@@ -39,7 +39,6 @@ use \plathir\widgets\common\helpers\WidgetHelper;
                         'dataProvider' => $searchModel->search($h_params[$ModuleName["env"]][$ModuleName["module_name"]]),
                         'showOnEmpty' => false,
                         'emptyText' => 'NoData',
-                        
                         'columns' => [
                             [
                                 'attribute' => 'tech_name',
@@ -59,7 +58,16 @@ use \plathir\widgets\common\helpers\WidgetHelper;
                                 },
                                 'format' => 'raw',
                             ],
-                            'name',
+                            [
+                                'attribute' => 'name',
+                                'value' => function($model) {
+                                    return '<h4>'.$model->name . '</h4><i><u>Path :</u> ' . $model->path . '</i>'.
+                                            '<br><i><u>Preview :</u></i><br>';
+                             //               $model->html_layout;
+                                },
+                                'format' => 'raw'
+                            ],
+                            //   'name',
                             [
                                 'attribute' => 'publish',
                                 'value' => function($model, $key, $index, $widget) {
@@ -114,7 +122,7 @@ use \plathir\widgets\common\helpers\WidgetHelper;
                     $items_frontend[] = ['label' => '<i class="fa fa-gear"></i>&nbsp' . $ModuleName["real_name"],
                         'content' => '<br>' . $grid,
                         'options' => ['id' => $ModuleName["module_name"]],
-                        ];
+                    ];
                 }
 
                 if ($ModuleName["env"] == 'backend') {
