@@ -20,7 +20,7 @@ class LayoutHelper {
     public function LoadLayout($fname, $content = '') {
         $layouts = Layouts::find()->All();
         foreach ($layouts as $layout) {
-            if ($layout->fullpath == $fname) {
+            if ($layout->fullpath == $fname && $layout->publish == true) {
                 $positions = $this->FindPositions($layout->html_layout);
                 $full_html_layout = $layout->html_layout;
                 foreach ($positions as $position) {
