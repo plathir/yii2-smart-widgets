@@ -21,13 +21,27 @@ class WidgetHelper {
         if ($Widget) {
             if ($Widget->publish == 1) {
                 $WdgetType = \plathir\widgets\backend\models\WidgetsTypes::findOne($Widget->widget_type);
-                $widget_class = $WdgetType->widget_class;
-                $tmpWidget = new $widget_class();
-                $config = json_decode($Widget->config, true);
-                $config["title"] = $Widget->name;
-                $newWidget = $tmpWidget::widget($config);
-                $widget_html = $newWidget;
-                return $widget_html;
+                if ($WdgetType->app) {
+                    if ($WdgetType->app->active == 1) {
+                        $type_active = true;
+                    } else {
+                        $type_active = false;
+                    }
+                } else {
+                    $type_active = true;
+                }
+
+                if ($type_active == true) {
+                    $widget_class = $WdgetType->widget_class;
+                    $tmpWidget = new $widget_class();
+                    $config = json_decode($Widget->config, true);
+                    $config["title"] = $Widget->name;
+                    $newWidget = $tmpWidget::widget($config);
+                    $widget_html = $newWidget;
+                    return $widget_html;
+                } else {
+                    return '';
+                }
             } else {
                 return '';
             }

@@ -36,7 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ]);
             ?>
         </p>
-
+        <?php
+        if ($model->app) {
+           echo $model->app->name .'<br>';
+           echo $model->app->active.'<br>';
+        }
+        ?>
         <?=
         DetailView::widget([
             'model' => $model,
