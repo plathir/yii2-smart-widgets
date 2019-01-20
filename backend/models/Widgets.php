@@ -98,7 +98,15 @@ class Widgets extends \yii\db\ActiveRecord {
             return null;
         }
     }
-
+    public function getModule_name() {
+        $type = WidgetsTypes::findOne($this->widget_type);
+        if ($type) {           
+            return $type->module_name;
+        } else {
+            return null;
+        }
+    }
+    
     public function getPositiondescr() {
         $position = Positions::findOne($this->position);
         if ($position) {
@@ -127,4 +135,14 @@ class Widgets extends \yii\db\ActiveRecord {
     public function setSelection_parameters() {
         return json_decode($this->config);
     }
+    
+    public function getEnvironment() {
+        if ($this->module_name) {
+            $h_env = explode('-', $this->module_name);
+            if ($h_env) {
+                return $h_env[0];
+            }
+        }
+    }
+    
 }

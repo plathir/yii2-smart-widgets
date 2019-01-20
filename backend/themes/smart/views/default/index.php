@@ -2,14 +2,149 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use yii\bootstrap\Tabs;
+use plathir\widgets\common\helpers\WidgetHelper;
+use yii\helpers\Url;
 ?>
 <?php
-//echo Html::tag('span', 'tooltip', [
-//    'title' => 'This is a test tooltip',
-//    'data-toggle' => 'tooltip',
-//]);
+$widgetHelper = new WidgetHelper();
+$ListModules = $widgetHelper->getListOfModules();
+$items_frontend = [];
+$items_backend = [];
+
+foreach ($ListModules as $ModuleName) {
+    $h_params[$ModuleName["env"]][$ModuleName["module_name"]]["Widgets_s"] = [
+        'id' => '',
+        'name' => '',
+        'environment' => '',
+        'module_name' => $ModuleName["module_name"],
+   //     'module_name' => $ModuleName["module_name"],
+        'publish' => ''
+    ];
+    echo '<pre>';
+  //  echo $ModuleName["module_name"];
+    print_r($ListModules);
+    echo '</pre>';
+    
+    $grid = GridView::widget([
+                'dataProvider' => $searchModel->search($h_params[$ModuleName["env"]][$ModuleName["module_name"]]),
+                'showOnEmpty' => false,
+                'emptyText' => 'NoData',
+                'columns' => [
+                    [
+                        'attribute' => 'id',
+                    ],
+                    [
+                        'attribute' => 'name',
+                    ],
+                    [
+                        'attribute' => 'module_name',
+                    ],
+
+                    //   'name',
+                    [
+                        'attribute' => 'publish',
+                    ],
+                    ['class' => 'yii\grid\ActionColumn',
+                        'template' => '{view}{update}{delete}',
+                        'contentOptions' => ['style' => 'min-width: 80px;'],
+                        'buttons' => [
+                            'view' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>&nbsp;', $url, [
+                                            'title' => Yii::t('widgets', 'view'),
+                                ]);
+                            },
+                            'update' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>&nbsp;', $url, [
+                                            'title' => Yii::t('widgets', 'view'),
+                                ]);
+                            },
+                            'delete' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-trash"></span>&nbsp;', $url, [
+                                            'title' => Yii::t('widgets', 'delete'),
+                                            'data-confirm' => Yii::t('widgets', 'Delete position ! Are yoy sure ?'),
+                                            'data-method' => 'post'
+                                ]);
+                            },
+                        ],
+                        'urlCreator' => function ($action, $model, $key, $index) {
+                            if ($action === 'view') {
+                                $url = Url::to(['widgets/view', 'id' => $model->id]);
+                                return $url;
+                            }
+                            if ($action === 'update') {
+                                $url = Url::to(['widgets/update', 'id' => $model->id]);
+                                return $url;
+                            }
+                            if ($action === 'delete') {
+                                $url = Url::to(['widgets/delete', 'id' => $model->id]);
+                                return $url;
+                            }
+                        }
+                    ]
+                ]
+    ]);
+
+    if (strpos($grid, 'NoData') == false) {
+        if ($ModuleName["env"] == 'frontend') {
+            $items_frontend[] = ['label' => '<i class="fa fa-gear"></i>&nbsp' . $ModuleName["real_name"],
+                'content' => '<br>' . $grid,
+                'options' => ['id' => $ModuleName["module_name"]],
+            ];
+        }
+
+        if ($ModuleName["env"] == 'backend') {
+            $items_backend[] = ['label' => '<i class="fa fa-gear"></i>&nbsp' . $ModuleName["real_name"],
+                'content' => '<br>' . $grid];
+        }
+    }
+}
 ?>
+
+
+<?php
+//
+?>
+
+<div id="user_tabs" class="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#frontend" data-toggle="tab"><i class="fa fa-tv"></i> <?= Yii::t('widgets', 'Frontend') ?></a></li>
+        <li><a href="#backend" data-toggle="tab"><i class="fa fa-navicon"></i> <?= Yii::t('widgets', 'Backend') ?></a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="active tab-pane" id="frontend">                    
+            <?=
+            '<h4>Modules :</h4>' . Tabs::widget([
+                'encodeLabels' => false,
+                'items' => $items_frontend]);
+            ?>
+        </div>
+        <!-- /.tab-pane -->
+        <div class="tab-pane" id="backend">
+            <?=
+            '<h4>Modules :</h4>' . Tabs::widget([
+                'encodeLabels' => false,
+                'items' => $items_backend]);
+            ?>
+        </div>
+        <!-- /.tab-pane -->
+    </div>
+    <!-- /.tab-content -->
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
 <div class="smartblog-default-index">
 
 
@@ -80,7 +215,7 @@ use yii\grid\GridView;
                         'value' => function($model, $key, $index, $widget) {
                             return plathir\widgets\backend\models\Positions::findOne($model->position)->name;
                         },
-                        'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'position', \yii\helpers\ArrayHelper::map(plathir\widgets\backend\models\Positions::find()->all(), 'tech_name', 'name'), ['class' => 'form-control', 'prompt' => Yii::t('widgets', 'Select...')]),
+                    //  'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'position', \yii\helpers\ArrayHelper::map(plathir\widgets\backend\models\Positions::find()->all(), 'id', 'name'), ['class' => 'form-control', 'prompt' => Yii::t('widgets', 'Select...')]),
                     ],
                     [
                         'attribute' => 'publish',
@@ -88,27 +223,27 @@ use yii\grid\GridView;
                             return $model->publishbadge;
                         },
                         'format' => 'html',
-                        'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'publish', ['0' => Yii::t('widgets', 'Unpublished'), '1' => Yii::t('widgets', 'Published')], ['class' => 'form-control', 'prompt' => Yii::t('widgets', 'Select...')]),
+                        //  'filter' => \yii\bootstrap\Html::activeDropDownList($searchModel, 'publish', ['0' => Yii::t('widgets', 'Unpublished'), '1' => Yii::t('widgets', 'Published')], ['class' => 'form-control', 'prompt' => Yii::t('widgets', 'Select...')]),
                         'contentOptions' => ['style' => 'width: 10%;']
                     ],
                     [
                         'attribute' => 'created_at',
                         'format' => ['date', 'php:' . Yii::$app->settings->getSettings('ShortDateFormat')],
                         'value' => 'created_at',
-                        'filter' => \backend\widgets\SmartDate::widget(['type' => 'filterShortDate', 'model' => $searchModel, 'attribute' => 'created_at']),
+                        //'filter' => \backend\widgets\SmartDate::widget(['type' => 'filterShortDate', 'model' => $searchModel, 'attribute' => 'created_at']),
                         'contentOptions' => ['style' => 'width: 12%;']
                     ],
                     [
                         'attribute' => 'updated_at',
                         'format' => ['date', 'php:' . Yii::$app->settings->getSettings('ShortDateFormat')],
                         'value' => 'updated_at',
-                        'filter' => \backend\widgets\SmartDate::widget(['type' => 'filterShortDate', 'model' => $searchModel, 'attribute' => 'updated_at']),
+                        // 'filter' => \backend\widgets\SmartDate::widget(['type' => 'filterShortDate', 'model' => $searchModel, 'attribute' => 'updated_at']),
                         'contentOptions' => ['style' => 'width: 12%;']
                     ],
                     ['class' => 'yii\grid\ActionColumn',
                         'contentOptions' => ['style' => 'min-width: 70px;',
-                            'class'=> 'btn-loader',
-                            ]
+                            'class' => 'btn-loader',
+                        ]
                     ]
                 ]
             ]);
