@@ -18,7 +18,7 @@ use \plathir\widgets\common\helpers\WidgetHelper;
         </div>
     </div><!-- /.box-header -->
     <div class="box-body">
-        <?= Html::a(Yii::t('widgets', 'Create new Layout'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('widgets', 'Create new Layout'), ['create'], ['class' => 'btn btn-success btn-flat btn-loader']) ?>
         <br>
         <br>
         <?php
@@ -61,8 +61,8 @@ use \plathir\widgets\common\helpers\WidgetHelper;
                             [
                                 'attribute' => 'name',
                                 'value' => function($model) {
-                                    return '<h4>'.$model->name . '</h4><i><u>Path :</u> ' . $model->path . '</i>'.
-                                            '<br><i><u>Preview :</u></i><br>'.
+                                    return '<h4>' . $model->name . '</h4><i><u>Path :</u> ' . $model->path . '</i>' .
+                                            '<br><i><u>Preview :</u></i><br>' .
                                             $model->html_layout;
                                 },
                                 'format' => 'raw'
@@ -117,6 +117,8 @@ use \plathir\widgets\common\helpers\WidgetHelper;
                         ]
             ]);
 
+
+
             if (strpos($grid, 'NoData') == false) {
                 if ($ModuleName["env"] == 'frontend') {
                     $items_frontend[] = ['label' => '<i class="fa fa-gear"></i>&nbsp' . $ModuleName["real_name"],
@@ -131,6 +133,9 @@ use \plathir\widgets\common\helpers\WidgetHelper;
                 }
             }
         }
+//            echo '<pre>';
+//            print_r($h_params);
+//            echo '</pre>';        
         ?>
 
         <div id="user_tabs" class="nav-tabs-custom">

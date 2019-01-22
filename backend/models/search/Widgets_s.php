@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\widgets\backend\models\search;
 
 use yii\base\Model;
@@ -9,6 +8,9 @@ use yii;
 
 class Widgets_s extends Widgets {
 
+    public $environment;
+    public $module_name;
+
     /**
      * @inheritdoc
      */
@@ -16,6 +18,8 @@ class Widgets_s extends Widgets {
         return [
             [['id', 'publish'], 'integer'],
             [['name', 'widget_type', 'description', 'position'], 'string'],
+            [['environment'], 'safe'],
+            [['module_name'], 'safe'],
             [['created_at', 'updated_at'], 'date', 'format' => Yii::$app->settings->getSettings('ShortDateFormat'), 'message' => '{attribute} must be DD/MM/YYYY format.'],
         ];
     }
@@ -29,9 +33,26 @@ class Widgets_s extends Widgets {
      */
     public function search($params) {
         $query = Widgets::find();
+        $query->joinWith(['widgetref']);
+
+        $query->select(['*', "SUBSTRING(widgets_types.module_name,1,LOCATE('-',widgets_types.module_name)- 1) AS environment"]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+
+        $dataProvider->setSort([
+            'attributes' => [
+                'id',
+                'name',
+                'module_name',
+                'publish',
+                'environment' => [
+                    'asc' => ['environment' => SORT_ASC],
+                    'desc' => ['environment' => SORT_DESC],
+                    'label' => 'Environment',
+                ],
+            ]
         ]);
 
         if (!($this->load($params) && $this->validate())) {
@@ -46,8 +67,10 @@ class Widgets_s extends Widgets {
 
         $query->andFilterWhere(['=', 'position', $this->position])
                 ->andFilterWhere(['like', 'name', $this->name])
-                ->andFilterWhere(['like', "( FROM_UNIXTIME(`created_at`, '". Yii::$app->settings->getSettings('DBShortDateFormat')." %h:%i:%s %p' ))", $this->created_at])
-                ->andFilterWhere(['like', "( FROM_UNIXTIME(`updated_at`, '". Yii::$app->settings->getSettings('DBShortDateFormat')." %h:%i:%s %p' ))", $this->updated_at]);
+                ->andFilterWhere(['like', "( FROM_UNIXTIME(`created_at`, '" . Yii::$app->settings->getSettings('DBShortDateFormat') . " %h:%i:%s %p' ))", $this->created_at])
+                ->andFilterWhere(['like', "( FROM_UNIXTIME(`updated_at`, '" . Yii::$app->settings->getSettings('DBShortDateFormat') . " %h:%i:%s %p' ))", $this->updated_at])
+                ->andFilterWhere(['like', 'widgets_types.module_name', $this->module_name])
+                ->andFilterWhere(['like', "SUBSTRING(widgets_types.module_name,1,LOCATE('-',module_name)-1)", $this->environment]);
 
         return $dataProvider;
     }

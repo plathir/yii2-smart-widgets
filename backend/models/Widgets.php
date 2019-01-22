@@ -1,5 +1,4 @@
 <?php
-
 namespace plathir\widgets\backend\models;
 
 use yii;
@@ -10,8 +9,10 @@ use plathir\widgets\backend\models\WidgetsTypes;
 use plathir\widgets\backend\models\Positions;
 
 class Widgets extends \yii\db\ActiveRecord {
+
     public $selection_parameters = '';
     public $created_at1 = '';
+
     public static function tableName() {
         return '{{%widgets}}';
     }
@@ -34,13 +35,14 @@ class Widgets extends \yii\db\ActiveRecord {
     }
 
     public function rules() {
-        return [           
+        return [
             [['widget_type'], 'string'],
             [['id', 'publish'], 'integer'],
             [['name', 'description', 'position', 'config', 'rules'], 'string'],
             [['created_at', 'updated_at'], 'integer'],
             [['widgettypedescr'], 'string'],
             [['positiondescr'], 'string'],
+//            ['environment'],
             ['config',
                 function ($attribute, $params) {
                     // Validate json in config
@@ -100,13 +102,13 @@ class Widgets extends \yii\db\ActiveRecord {
     }
     public function getModule_name() {
         $type = WidgetsTypes::findOne($this->widget_type);
-        if ($type) {           
+        if ($type) {
             return $type->module_name;
         } else {
             return null;
         }
     }
-    
+
     public function getPositiondescr() {
         $position = Positions::findOne($this->position);
         if ($position) {
@@ -135,7 +137,7 @@ class Widgets extends \yii\db\ActiveRecord {
     public function setSelection_parameters() {
         return json_decode($this->config);
     }
-    
+
     public function getEnvironment() {
         if ($this->module_name) {
             $h_env = explode('-', $this->module_name);
@@ -144,5 +146,10 @@ class Widgets extends \yii\db\ActiveRecord {
             }
         }
     }
-    
+
+    public function getWidgetref() {
+
+        return $this->hasOne(WidgetsTypes::className(), ['tech_name' => 'widget_type']);
+    }
+
 }

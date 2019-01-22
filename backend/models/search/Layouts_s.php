@@ -55,7 +55,7 @@ class Layouts_s extends Layouts {
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
-
+        
         $query->andFilterWhere(['publish' => $this->publish])
                 ->andFilterWhere(['like', 'tech_name', $this->tech_name])
                 ->andFilterWhere(['like', 'name', $this->name])

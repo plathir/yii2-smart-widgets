@@ -29,6 +29,7 @@ use \backend\widgets\SmartDate;
 
         <?php
         $widgets_types_Model = new plathir\widgets\backend\models\WidgetsTypes();
+
         $items = \yii\helpers\ArrayHelper::map($widgets_types_Model::find()->all(), 'tech_name', 'widget_name');
         ?>   
 
