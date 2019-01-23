@@ -23,4 +23,6 @@ return [
     'Widget Name' => 'Όνομα Widget',
     'Widget class' => 'Widget class',
     'Description' => 'Περιγραφή',
+    'The Widgets caregorized to Frontend and Backend environment ( and Module tabs ) by Module Name that exist within Position' => 'Τα Widgets έχουν ταξινομηθεί στο περιβάλλον Frontend και Backend (και στις καρτέλες Module) από το όνομα του Widget που υπάρχει στη Position',
+    'The Position may belong to a different Module Name than the module name that exists within the Widget type' => 'Η θέση μπορεί να ανήκει σε διαφορετικό Module name από το Module name που υπάρχει μέσα στον τύπο του Widget',
 ];

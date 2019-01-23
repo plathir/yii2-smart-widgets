@@ -25,8 +25,8 @@ $items_backend = [];
     <br>
     <br>
         <blockquote>
-            <p>The Widgets caregorized to Frontend and Backend environment ( and Module tabs ) by Module Name that exist within Position </p>
-            <footer>The Position may belong to a different Module Name than the module name that exists within the Widget type</footer>
+            <p><?= \Yii::t('widgets','The Widgets caregorized to Frontend and Backend environment ( and Module tabs ) by Module Name that exist within Position' ) ?></p>
+            <footer><?= \Yii::t('widgets','The Position may belong to a different Module Name than the module name that exists within the Widget type') ?></footer>
         </blockquote>
 
 
