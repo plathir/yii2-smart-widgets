@@ -34,8 +34,10 @@ class Widgets_s extends Widgets {
     public function search($params) {
         $query = Widgets::find();
         $query->joinWith(['widgetref']);
+        $query->joinWith(['positionref']);
 
-        $query->select(['*', "SUBSTRING(widgets_types.module_name,1,LOCATE('-',widgets_types.module_name)- 1) AS environment"]);
+        //$query->select(['*', "SUBSTRING(widgets_types.module_name,1,LOCATE('-',widgets_types.module_name)- 1) AS environment"]);
+        $query->select(['*', "SUBSTRING(widgets_positions.module_name,1,LOCATE('-',widgets_positions.module_name)- 1) AS environment"]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -69,8 +71,8 @@ class Widgets_s extends Widgets {
                 ->andFilterWhere(['like', 'name', $this->name])
                 ->andFilterWhere(['like', "( FROM_UNIXTIME(`created_at`, '" . Yii::$app->settings->getSettings('DBShortDateFormat') . " %h:%i:%s %p' ))", $this->created_at])
                 ->andFilterWhere(['like', "( FROM_UNIXTIME(`updated_at`, '" . Yii::$app->settings->getSettings('DBShortDateFormat') . " %h:%i:%s %p' ))", $this->updated_at])
-                ->andFilterWhere(['like', 'widgets_types.module_name', $this->module_name])
-                ->andFilterWhere(['like', "SUBSTRING(widgets_types.module_name,1,LOCATE('-',module_name)-1)", $this->environment]);
+                ->andFilterWhere(['like', 'widgets_positions.module_name', $this->module_name])
+                ->andFilterWhere(['like', "SUBSTRING(widgets_positions.module_name,1,LOCATE('-',module_name)-1)", $this->environment]);
 
         return $dataProvider;
     }

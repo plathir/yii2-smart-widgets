@@ -100,10 +100,11 @@ class Widgets extends \yii\db\ActiveRecord {
             return null;
         }
     }
+
     public function getModule_name() {
-        $type = WidgetsTypes::findOne($this->widget_type);
-        if ($type) {
-            return $type->module_name;
+        $position = Positions::findOne($this->position);
+        if ($position) {
+            return $position->module_name;
         } else {
             return null;
         }
@@ -150,6 +151,11 @@ class Widgets extends \yii\db\ActiveRecord {
     public function getWidgetref() {
 
         return $this->hasOne(WidgetsTypes::className(), ['tech_name' => 'widget_type']);
+    }
+
+    public function getPositionref() {
+
+        return $this->hasOne(Positions::className(), ['tech_name' => 'position']);
     }
 
 }
