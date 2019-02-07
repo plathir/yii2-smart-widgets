@@ -3,7 +3,7 @@ namespace plathir\widgets\backend\models;
 
 use yii;
 use \plathir\widgets\common\helpers\WidgetHelper;
-use \plathir\apps\models\Apps;
+use \plathir\apps\backend\models\Apps;
 
 class WidgetsTypes extends \yii\db\ActiveRecord {
 
