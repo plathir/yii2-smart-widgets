@@ -1,11 +1,8 @@
 <?php
 
-namespace plathir\widgets\migrations;
-
-
 use yii\db\Migration;
 
-class WidgetsModuleMigration extends Migration {
+class m190210_180930_WidgetsModuleMigration extends Migration {
 
     public function up() {
 
@@ -58,7 +55,20 @@ class WidgetsModuleMigration extends Migration {
 
         $this->addPrimaryKey('pk_widgets_positions_sorder', 'widgets_positions_sorder', ['position_tech_name']);
         $this->addForeignKey('fk_widgets_position_position_tech_name', 'widgets_positions_sorder', 'position_tech_name', 'widgets_positions', 'tech_name', 'CASCADE', 'CASCADE');
-        
+
+// Widgets Layouts
+        // Widget Positions
+        $this->createTable('widgets_layouts', [
+            'tech_name' => $this->string(50)->notNull(),
+            'name' => $this->string(100)->notNull(),
+            'path' => $this->string()->notNull(),
+            'html_layout' => $this->string()->notNull(),
+            'publish' => $this->integer()->notNull(),
+            'module_name' => $this->string(50)->notNull(),            
+        ]);
+
+        $this->addPrimaryKey('pk_widgets_layouts', 'widgets_layouts', ['tech_name']);
+
         // Widgets
         $this->createTable('widgets', [
             'id' => $this->primaryKey(),
@@ -73,6 +83,9 @@ class WidgetsModuleMigration extends Migration {
             'updated_at' => $this->integer(11)->notNull(),
         ]);
 
+        
+        
+        
         $this->addForeignKey('fk_widgets_widget_type', 'widgets', 'widget_type', 'widgets_types', 'tech_name', 'CASCADE', 'CASCADE');
         $this->addForeignKey('fk_widgets_position', 'widgets', 'position', 'widgets_positions', 'tech_name', 'SET NULL', 'CASCADE');
         
