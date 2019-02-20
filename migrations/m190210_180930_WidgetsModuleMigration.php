@@ -15,6 +15,7 @@ class m190210_180930_WidgetsModuleMigration extends Migration {
         $this->dropIfExist('widgets_positions_sorder');
         $this->dropIfExist('widgets_positions');
         $this->dropIfExist('widgets_types');
+        $this->dropIfExist('widgets_layouts');
     }
 
 
@@ -24,6 +25,7 @@ class m190210_180930_WidgetsModuleMigration extends Migration {
         $this->dropIfExist('widgets_positions_sorder');
         $this->dropIfExist('widgets_positions');
         $this->dropIfExist('widgets_types');
+        $this->dropIfExist('widgets_layouts');        
         
         // Widget Types Table
         $this->createTable('widgets_types', [
