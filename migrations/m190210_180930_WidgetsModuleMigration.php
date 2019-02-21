@@ -34,7 +34,7 @@ class m190210_180930_WidgetsModuleMigration extends Migration {
             'widget_name' => $this->string(50)->notNull(),
             'widget_class' => $this->string(255)->notNull(),
             'description' => $this->text()->notNull(),
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->addPrimaryKey('pk_widgets_types', 'widgets_types', ['tech_name']);
         
@@ -45,7 +45,7 @@ class m190210_180930_WidgetsModuleMigration extends Migration {
             'name' => $this->string(100)->notNull(),
             'publish' => $this->integer()->notNull(),
             'module_name' => $this->string(50)->notNull(),            
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->addPrimaryKey('pk_widgets_positions', 'widgets_positions', ['tech_name']);
 
@@ -53,7 +53,7 @@ class m190210_180930_WidgetsModuleMigration extends Migration {
         $this->createTable('widgets_positions_sorder', [
             'position_tech_name' => $this->string(50)->notNull(),
             'widget_sort_order' => $this->text(),
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->addPrimaryKey('pk_widgets_positions_sorder', 'widgets_positions_sorder', ['position_tech_name']);
         $this->addForeignKey('fk_widgets_position_position_tech_name', 'widgets_positions_sorder', 'position_tech_name', 'widgets_positions', 'tech_name', 'CASCADE', 'CASCADE');
@@ -67,7 +67,7 @@ class m190210_180930_WidgetsModuleMigration extends Migration {
             'html_layout' => $this->string()->notNull(),
             'publish' => $this->integer()->notNull(),
             'module_name' => $this->string(50)->notNull(),            
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         $this->addPrimaryKey('pk_widgets_layouts', 'widgets_layouts', ['tech_name']);
 
@@ -83,7 +83,7 @@ class m190210_180930_WidgetsModuleMigration extends Migration {
             'rules' => $this->text()->notNull(),
             'created_at' => $this->integer(11)->notNull(),
             'updated_at' => $this->integer(11)->notNull(),
-        ]);
+        ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
         
         
