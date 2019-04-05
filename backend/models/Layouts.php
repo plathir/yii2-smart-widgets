@@ -4,6 +4,7 @@ namespace plathir\widgets\backend\models;
 use yii;
 use \plathir\widgets\common\helpers\WidgetHelper;
 use \plathir\widgets\common\helpers\LayoutHelper;
+use yii\helpers\BaseFileHelper;
 
 class Layouts extends \yii\db\ActiveRecord {
 
@@ -70,7 +71,7 @@ class Layouts extends \yii\db\ActiveRecord {
     }
 
     public function getFullpath() {
-        return yii::getAlias($this->path);
+        return BaseFileHelper::normalizePath(yii::getAlias($this->path));
     }
 
     public function getPositions() {
