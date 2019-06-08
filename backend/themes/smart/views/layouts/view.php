@@ -47,6 +47,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'name',
                 'path',
                 'fullpath',
+                'themepath',
+                'module_name',
                 ['attribute' => 'positions',
                     'value' => function( $model ) {
                         return implode(",", $model->positions);

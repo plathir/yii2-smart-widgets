@@ -75,7 +75,21 @@ class Layouts extends \yii\db\ActiveRecord {
     }
 
     public function getPositions() {
-     $helper = new LayoutHelper();
-     return $helper->FindPositions($this->html_layout);
+        $helper = new LayoutHelper();
+        return $helper->FindPositions($this->html_layout);
     }
+
+    public function getThemepath() {
+
+        $temp = explode('-', $this->module_name);
+
+        $module_name = $temp[1];
+        $module = \Yii::$app->getModule($module_name);
+        if ($module) {
+            return dirname($module->getBasePath()) . DIRECTORY_SEPARATOR . $temp[0] . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR . 'smart';
+        } else {
+            return '';
+        }
+    }
+
 }
