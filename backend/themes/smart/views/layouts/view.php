@@ -48,6 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'path',
                 'fullpath',
                 'themepath',
+                'activethemepath',
                 'module_name',
                 ['attribute' => 'positions',
                     'value' => function( $model ) {

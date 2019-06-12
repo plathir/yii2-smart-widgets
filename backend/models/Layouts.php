@@ -1,4 +1,5 @@
 <?php
+
 namespace plathir\widgets\backend\models;
 
 use yii;
@@ -79,17 +80,68 @@ class Layouts extends \yii\db\ActiveRecord {
         return $helper->FindPositions($this->html_layout);
     }
 
+    
+    public function getRealmodulename() {
+        $temp = explode('-', $this->module_name);
+            
+        if ($temp) {
+            return $temp[1];
+        } else {
+            return '';
+        }
+        
+    }
+    
     public function getThemepath() {
 
+        $themeHelper = new \frontend\helpers\ThemesHelper();
+        
         $temp = explode('-', $this->module_name);
+        $path = '';
+        $real_module_name = '';
 
-        $module_name = $temp[1];
-        $module = \Yii::$app->getModule($module_name);
-        if ($module) {
-            return dirname($module->getBasePath()) . DIRECTORY_SEPARATOR . $temp[0] . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR . 'smart';
+        if ($temp) {
+            $module_name = $temp[1];
+          switch ($module_name) {
+                case 'frontend_dashboard':
+                    $path = Yii::getAlias('@realAppPath') . DIRECTORY_SEPARATOR . 'frontend' . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR . 'smart';
+                    $real_module_name = 'base';
+                    break;
+                case 'backend_dashboard':
+                    $path = Yii::getAlias('@realAppPath') . DIRECTORY_SEPARATOR . 'backend'. DIRECTORY_SEPARATOR . 'themes'. DIRECTORY_SEPARATOR . 'smart';
+                    $real_module_name = 'base';
+                    break;
+                default:
+                    $real_module_name = $module_name;
+                    break;
+            }
+
+            if ($path) {
+                return  $themeHelper->ModuleThemePath($real_module_name, realpath($path) );
+            } else {
+                $module = \Yii::$app->getModule($module_name);
+                if ($module) {
+                    $path = dirname($module->getBasePath()) . DIRECTORY_SEPARATOR . $temp[0] . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR . 'smart';
+                    return  $themeHelper->ModuleThemePath($real_module_name, realpath($path) );
+                } else {
+                    return '';
+                }
+            }
         } else {
             return '';
         }
     }
 
+    public function getActivethemepath() {
+        if ($this->environment == 'frontend') {
+            
+           if ( Yii::$app->settings->getSettings('FrontendTheme') != null ) {
+               $path = Yii::getAlias('@realAppPath') . '/themes/site/' . Yii::$app->settings->getSettings('BackendTheme') . '/module/'. $this->realmodulename;
+               return $path;
+           }
+        } elseif ($this->environment == 'backend') {
+            
+        } 
+        
+    }
 }
