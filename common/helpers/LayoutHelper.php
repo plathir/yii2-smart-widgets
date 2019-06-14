@@ -19,6 +19,12 @@ class LayoutHelper {
 
     public function LoadLayout($fname, $content = '') {
         $layouts = Layouts::find()->All();
+//        echo '<pre>';
+//        foreach ($layouts as $layout) {
+//            echo $layout->tech_name . '--' . $layout->module_name .'--'. $layout->fullpath . '<br>';
+//        }
+//        echo '</pre>';
+//        
         foreach ($layouts as $layout) {
             if ($layout->fullpath == $fname && $layout->publish == true) {
                 $positions = $this->FindPositions($layout->html_layout);
@@ -36,6 +42,7 @@ class LayoutHelper {
                 
                 return $full_html_layout;
             }
+ 
         }
     }
 

@@ -8,7 +8,15 @@ class Module extends \yii\base\Module {
     public $Theme = 'smart';
 
     public function init() {
-        $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-widgets/backend/themes/' . $this->Theme . '/views';
+//        $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-widgets/backend/themes/' . $this->Theme . '/views';
+        
+        if (Yii::$app->settings->getSettings('BackendTheme') != null) {
+            $path = Yii::getAlias('@realAppPath') . '/themes/admin/' . Yii::$app->settings->getSettings('BackendTheme') . '/module/widgets/views';
+        } else {
+            $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-widgets/backend/themes/' . $this->Theme . '/views';
+        }         
+        
+        
         $this->setViewPath($path);
         parent::init();
         $this->registerTranslations();
