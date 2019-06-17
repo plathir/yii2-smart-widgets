@@ -1,4 +1,5 @@
 <?php
+
 namespace plathir\widgets\backend\models;
 
 use yii;
@@ -6,6 +7,7 @@ use \plathir\widgets\common\helpers\WidgetHelper;
 use \plathir\widgets\common\helpers\LayoutHelper;
 use yii\helpers\BaseFileHelper;
 use yii\web\NotFoundHttpException;
+use \common\helpers\ThemesHelper;
 
 class Layouts extends \yii\db\ActiveRecord {
 
@@ -100,7 +102,7 @@ class Layouts extends \yii\db\ActiveRecord {
 
     public function getThemepath() {
 
-        $themeHelper = new \frontend\helpers\ThemesHelper();
+        $themeHelper = new ThemesHelper();
 
         $temp = explode('-', $this->module_name);
         $path = '';
@@ -143,9 +145,8 @@ class Layouts extends \yii\db\ActiveRecord {
         }
     }
 
-    
-              
     public function getFullpath() {
         return BaseFileHelper::normalizePath($this->themepath . $this->path);
     }
+
 }

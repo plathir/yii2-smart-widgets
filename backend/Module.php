@@ -2,20 +2,17 @@
 namespace plathir\widgets\backend;
 
 use Yii;
+use \common\helpers\ThemesHelper;
 
 class Module extends \yii\base\Module {
 
     public $Theme = 'smart';
 
-    public function init() {
-//        $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-widgets/backend/themes/' . $this->Theme . '/views';
+    public function init() {      
         
-        if (Yii::$app->settings->getSettings('BackendTheme') != null) {
-            $path = Yii::getAlias('@realAppPath') . '/themes/admin/' . Yii::$app->settings->getSettings('BackendTheme') . '/module/widgets/views';
-        } else {
-            $path = Yii::getAlias('@vendor') . '/plathir/yii2-smart-widgets/backend/themes/' . $this->Theme . '/views';
-        }         
-        
+        $helper = new ThemesHelper();
+        $path = $helper->ModuleThemePath('widgets', 'backend', dirname(__FILE__) . "/themes/$this->Theme");
+        $path = $path . '/views';
         
         $this->setViewPath($path);
         parent::init();
