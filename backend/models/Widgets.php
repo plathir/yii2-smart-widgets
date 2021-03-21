@@ -64,6 +64,14 @@ class Widgets extends \yii\db\ActiveRecord {
             'widgettypedescr' => Yii::t('widgets', 'Widget Type'),
             'positiondescr' => Yii::t('widgets', 'Position'),
             'publishbadge' => Yii::t('widgets', 'Publish'),
+            'widget_type' => Yii::t('widgets', 'Widget Type'),
+            'name' => Yii::t('widgets', 'Name'),
+            'position' => Yii::t('widgets', 'Position'),
+            'publish' => Yii::t('widgets', 'Publish'),
+            'config' => Yii::t('widgets', 'Config'),
+            'rules' => Yii::t('widgets', 'Rules'),
+            'created_at' => Yii::t('widgets', 'Created At'),
+            'updated_at' => Yii::t('widgets', 'Updated At'),
         ];
     }
 

@@ -15,7 +15,7 @@ use \yii\helpers\ArrayHelper;
         </div>
     </div><!-- /.box-header -->
     <div class="box-body">
-        <?= Html::a(Yii::t('widgets','Create new Type'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fa fa-fw fa-plus"></i> '.Yii::t('widgets','Create new Type'), ['create'], ['class' => 'btn btn-success btn-flat']) ?>
         <?=
         GridView::widget([
             'dataProvider' => $dataProvider,

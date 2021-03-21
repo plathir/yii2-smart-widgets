@@ -51,13 +51,13 @@ use lav45\aceEditor\AceEditorWidget;
             ?> 
 
             <div class="form-group">
-                <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>' . Yii::t('widgets', 'Create') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('widgets', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('widgets', 'Save') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> ' . Yii::t('widgets', 'Save Changes'), ['class' => $model->isNewRecord ? 'btn btn-success btn-flat' : 'btn btn-primary btn-flat']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>   
         </div>     
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <h4>Available Positions</h4>
+            <h4><?= Yii::t('widgets','Available Positions') ?></h4>
             <hr>
             <table>
                 <?php

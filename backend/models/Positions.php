@@ -31,6 +31,7 @@ class Positions extends \yii\db\ActiveRecord {
             'environment' => Yii::t('widgets', 'Environment'),
             'module_name' => Yii::t('widgets', 'Module Name'),
             'publishbadge' => Yii::t('widgets', 'Publish'),
+            'tech_name' => Yii::t('widgets', 'Position Technical Name'),
         ];
     }
 

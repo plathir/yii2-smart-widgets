@@ -21,7 +21,7 @@ $items_backend = [];
         </div>
     </div><!-- /.box-header -->
     <div class="box-body">
-        <?= Html::a(Yii::t('widgets', 'Create new Widget'), ['create'], ['class' => 'btn btn-success btn-flat btn-loader']) ?>
+        <?= Html::a('<i class="fa fa-fw fa-plus"></i> '.Yii::t('widgets', 'Create new Widget'), ['create'], ['class' => 'btn btn-success btn-flat btn-loader']) ?>
         <br>
         <br>
         <blockquote>

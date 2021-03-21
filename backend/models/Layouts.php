@@ -29,16 +29,17 @@ class Layouts extends \yii\db\ActiveRecord {
     /**
      * @inheritdoc
      */
-//    public function attributeLabels() {
-//        return [
-//            'tech_name' => Yii::t('widgets', 'Layout Technical Name'),
-//            'name' => Yii::t('widgets', 'Name'),
-//            'publish' => Yii::t('widgets', 'Publish'),
-//            'environment' => Yii::t('widgets', 'Environment'),
-//            'module_name' => Yii::t('widgets', 'Module Name'),
-//            'publishbadge' => Yii::t('widgets', 'Publish'),
-//        ];
-//    }
+    public function attributeLabels() {
+        return [
+            'tech_name' => Yii::t('widgets', 'Technical Name'),
+            'name' => Yii::t('widgets', 'Name'),
+            'publish' => Yii::t('widgets', 'Publish'),
+            'environment' => Yii::t('widgets', 'Environment'),
+            'module_name' => Yii::t('widgets', 'Module Name'),
+            'publishbadge' => Yii::t('widgets', 'Publish'),
+            'html_layout' => Yii::t('widgets', 'Html Layout'),
+        ];
+    }
 
     public function getModuleslist() {
 

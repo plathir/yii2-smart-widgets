@@ -36,6 +36,7 @@ class WidgetsTypes extends \yii\db\ActiveRecord {
             'widget_name' => Yii::t('widgets', 'Widget Name'),
             'widget_class' => Yii::t('widgets', 'Widget class'),
             'description' => Yii::t('widgets', 'Description'),
+            'environment' => Yii::t('widgets', 'Environment'),
         ];
     }
 

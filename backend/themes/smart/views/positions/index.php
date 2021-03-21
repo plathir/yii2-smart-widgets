@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use \yii\helpers\ArrayHelper;
+use yii\web\View;
 ?>
 
 <div class="box box-info">
@@ -15,8 +16,8 @@ use \yii\helpers\ArrayHelper;
         </div>
     </div><!-- /.box-header -->
     <div class="box-body">
-        <?= Html::a(Yii::t('widgets', 'Create new Position'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Yii::t('widgets', 'Rebuild Sort Order'), ['rebuild'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fa fa-fw fa-plus"></i> '.Yii::t('widgets', 'Create new Position'), ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+        <?= Html::a('<i class="fa fa-fw fa-cubes"></i> '.Yii::t('widgets', 'Rebuild Sort Order'), ['rebuild'], ['class' => 'btn btn-success btn-flat']) ?>
 
         <?=
         GridView::widget([
@@ -51,11 +52,17 @@ use \yii\helpers\ArrayHelper;
                 ],
                 [
                     'class' => 'yii\grid\ActionColumn',
-                    'contentOptions' => ['style' => 'min-width: 80px;'],
+                    'contentOptions' => ['style' => 'min-width: 30px;'],
                     'template' => '{my_button}',
                     'buttons' => [
                         'my_button' => function ($url, $model, $key) {
-                            return Html::a(Yii::t('widgets', 'Sort Order'), ['positions_sorder/update', 'tech_name' => $model->tech_name]);
+                            return Html::a('<i class="fa fa-fw fa-list-ol"></i>', ['positions_sorder/update', 'tech_name' => $model->tech_name], [
+                              'title' => Yii::t('widgets', 'Sort Order')  
+                            ]);
+//                            return Html::a('<i class="fa fa-fw fa-list-ol" rel="tooltip" title="' . Yii::t('widgets', 'Sort Order') . '" ></i>', ['positions_sorder/update', 'tech_name' => $model->tech_name]);
+                            //return Html::a('<i class="fa fa-fw fa-list-ol" rel="tooltip" title="' . Yii::t('widgets', 'Sort Order') . '" ></i>', ['positions_sorder/update', 'tech_name' => $model->tech_name], [
+//                                'title' => Yii::t('widgets', 'Sort Order'),
+//                            ]);
                         },
                     ],
                 ],
@@ -64,7 +71,9 @@ use \yii\helpers\ArrayHelper;
                     'template' => '{my_button}',
                     'buttons' => [
                         'my_button' => function ($url, $model, $key) {
-                            return Html::a(Yii::t('widgets', 'Rebuild'), ['rebuildposition', 'tech_name' => $model->tech_name]);
+                            return Html::a('<i class="fa fa-fw fa-cubes"></i>', ['rebuildposition', 'tech_name' => $model->tech_name],[
+                                'title' => Yii::t('widgets', 'Rebuild'),
+                            ] );
                         },
                     ]
                 ],
@@ -74,17 +83,17 @@ use \yii\helpers\ArrayHelper;
                     'buttons' => [
                         'view' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-eye-open"></span>&nbsp;', $url, [
-                                        'title' => Yii::t('widgets', 'view'),
+                                        'title' => Yii::t('widgets', 'View'),
                             ]);
                         },
                         'update' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-pencil"></span>&nbsp;', $url, [
-                                        'title' => Yii::t('widgets', 'view'),
+                                        'title' => Yii::t('widgets', 'Update'),
                             ]);
                         },
                         'delete' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-trash"></span>&nbsp;', $url, [
-                                        'title' => Yii::t('widgets', 'delete'),
+                                        'title' => Yii::t('widgets', 'Delete'),
                                         'data-confirm' => Yii::t('widgets', 'Delete position ! Are yoy sure ?'),
                                         'data-method' => 'post'
                             ]);
@@ -109,7 +118,15 @@ use \yii\helpers\ArrayHelper;
         ]);
         ?>
 
-
+        <?php
+//        $js = "$(document).ready(function () {
+//                $('[rel=tooltip]').tooltip({placement: 'top'});
+//            });";
+//
+//        $this->registerJs(
+//                $js, View::POS_READY
+//        );
+        ?>
     </div>
 </div>
 

@@ -18,7 +18,7 @@ use \plathir\widgets\common\helpers\WidgetHelper;
         </div>
     </div><!-- /.box-header -->
     <div class="box-body">
-        <?= Html::a(Yii::t('widgets', 'Create new Layout'), ['create'], ['class' => 'btn btn-success btn-flat btn-loader']) ?>
+        <?= Html::a('<i class="fa fa-fw fa-plus"></i> '.Yii::t('widgets', 'Create new Layout'), ['create'], ['class' => 'btn btn-success btn-flat btn-loader']) ?>
         <br>
         <br>
         <?php
@@ -46,7 +46,7 @@ use \plathir\widgets\common\helpers\WidgetHelper;
                                     $helper = new LayoutHelper();
                                     $val = $model->tech_name;
                                     $positions = $helper->FindPositions($model->html_layout);
-                                    $val_positions = Yii::t('widgets', '<br><i><u>Positions </u>: </i>');
+                                    $val_positions = Yii::t('widgets', '<br><i><u>' . Yii::t('widgets', 'Positions') . '</u> : </i>');
                                     foreach ($positions as $position) {
                                         if ($position == 'CONTENT') {
                                             $val_positions .= '<br><span class="label label-primary">' . $position . '</span>';
@@ -62,7 +62,7 @@ use \plathir\widgets\common\helpers\WidgetHelper;
                                 'attribute' => 'name',
                                 'value' => function($model) {
                                     return '<h4>' . $model->name . '</h4><i><u>Path :</u> ' . $model->path . '</i>' .
-                                            '<br><i><u>Preview :</u></i><br>' .
+                                            '<br><i><u>' . Yii::t('widgets', 'Preview') . ' :</u></i><br>' .
                                             $model->html_layout;
                                 },
                                 'format' => 'raw'
@@ -83,18 +83,18 @@ use \plathir\widgets\common\helpers\WidgetHelper;
                                 'buttons' => [
                                     'view' => function ($url, $model) {
                                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>&nbsp;', $url, [
-                                                    'title' => Yii::t('widgets', 'view'),
+                                                    'title' => Yii::t('widgets', 'View'),
                                         ]);
                                     },
                                     'update' => function ($url, $model) {
                                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>&nbsp;', $url, [
-                                                    'title' => Yii::t('widgets', 'view'),
+                                                    'title' => Yii::t('widgets', 'Update'),
                                         ]);
                                     },
                                     'delete' => function ($url, $model) {
                                         return Html::a('<span class="glyphicon glyphicon-trash"></span>&nbsp;', $url, [
-                                                    'title' => Yii::t('widgets', 'delete'),
-                                                    'data-confirm' => Yii::t('widgets', 'Delete position ! Are yoy sure ?'),
+                                                    'title' => Yii::t('widgets', 'Delete'),
+                                                    'data-confirm' => Yii::t('widgets', 'Delete Layout ! Are yoy sure ?'),
                                                     'data-method' => 'post'
                                         ]);
                                     },

@@ -33,7 +33,7 @@ use kartik\widgets\SwitchInput;
         ?> 
 
         <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>'. Yii::t('widgets', 'Create') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> '. Yii::t('widgets', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($model->isNewRecord ? '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> '. Yii::t('widgets', 'Save') : '<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> '. Yii::t('widgets', 'Save Changes'), ['class' => $model->isNewRecord ? 'btn btn-success btn-flat' : 'btn btn-primary btn-flat']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>     

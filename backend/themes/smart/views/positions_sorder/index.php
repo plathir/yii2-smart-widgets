@@ -14,7 +14,7 @@ use \yii\helpers\ArrayHelper;
         </div>
     </div><!-- /.box-header -->
     <div class="box-body">
-        <?= Html::a(Yii::t('widgets','Create new Position'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('widgets','Create new Position'), ['create'], ['class' => 'btn btn-success btn-flat']) ?>
 
 
         <?=
