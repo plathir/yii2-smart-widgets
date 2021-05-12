@@ -13,11 +13,14 @@ use yii\filters\VerbFilter;
  *
  */
 class Positions_sorderController extends Controller {
-    
-        public function __construct($id, $module) {
+
+    public $permissionName = 'SystemWidgets';
+
+    public function __construct($id, $module) {
         parent::__construct($id, $module);
-                $this->layout = "main";
+        $this->layout = "main";
     }
+
     public function behaviors() {
         return [
             'verbs' => [
@@ -40,19 +43,23 @@ class Positions_sorderController extends Controller {
 //    }
 
     public function actionUpdate($tech_name) {
-        $model = $this->findModel($tech_name);
-        if ($model != null) {
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {position_tech_name} updated !', ['position_tech_name' => $model->position_tech_name]));
-                return $this->goBack();
+        if (\yii::$app->user->can($this->permissionName)) {
+            $model = $this->findModel($tech_name);
+            if ($model != null) {
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    Yii::$app->getSession()->setFlash('success', Yii::t('widgets', 'Position : {position_tech_name} updated !', ['position_tech_name' => $model->position_tech_name]));
+                    return $this->goBack();
+                } else {
+                    return $this->render('update', [
+                                'model' => $model
+                    ]);
+                }
             } else {
-                return $this->render('update', [
-                            'model' => $model
-                ]);
+                Yii::$app->getSession()->setFlash('danger', Yii::t('widgets', 'No sort order found for Position : {tech_name} ', ['tech_name' => $tech_name]));
+                return $this->goBack();
             }
         } else {
-            Yii::$app->getSession()->setFlash('danger', Yii::t('widgets', 'No sort order found for Position : {tech_name} ', ['tech_name' => $tech_name]));
-            return $this->goBack();
+            throw new \yii\web\NotAcceptableHttpException(Yii::t('widgets', 'No Permission to Update Sort Order ' . $this->permissionName));
         }
     }
 

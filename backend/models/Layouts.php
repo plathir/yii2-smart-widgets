@@ -124,9 +124,9 @@ class Layouts extends \yii\db\ActiveRecord {
                     $real_module_name = $module_name;
                     break;
             }
-
             if ($path) {
-                return $themeHelper->ModuleThemePath($real_module_name, $this->environment, realpath($path));
+                $finalPath = $themeHelper->ModuleThemePath($real_module_name, $this->environment, realpath($path));
+                return $finalPath;
             } else {
 
                 try {

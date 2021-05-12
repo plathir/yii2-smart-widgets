@@ -84,8 +84,6 @@ class m190210_180930_WidgetsModuleMigration extends Migration {
                 ], 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB');
 
 
-
-
         $this->addForeignKey('fk_widgets_widget_type', '{{%widgets}}', 'widget_type', '{{%widgets_types}}', 'tech_name', 'CASCADE', 'CASCADE');
         $this->addForeignKey('fk_widgets_position', '{{%widgets}}', 'position', '{{%widgets_positions}}', 'tech_name', 'SET NULL', 'CASCADE');
     }

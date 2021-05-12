@@ -1,4 +1,5 @@
 <?php
+
 namespace plathir\widgets\common\helpers;
 
 use plathir\widgets\backend\models\search\Layouts_s;
@@ -24,8 +25,11 @@ class LayoutHelper {
 //            echo $layout->tech_name . '--' . $layout->module_name .'--'. $layout->fullpath . '<br>';
 //        }
 //        echo '</pre>';
-//        
+//        echo 'FileName = '. $fname. '<br>';
+//
+//die();
         foreach ($layouts as $layout) {
+//            echo 'FullPath = '. $layout->name. '-'.$layout->fullpath . '<br>';
             if ($layout->fullpath == $fname && $layout->publish == true) {
                 $positions = $this->FindPositions($layout->html_layout);
                 $full_html_layout = $layout->html_layout;
@@ -39,10 +43,9 @@ class LayoutHelper {
                         $full_html_layout = str_replace($position_var, $position_html, $full_html_layout);
                     }
                 }
-                
+//                die();
                 return $full_html_layout;
             }
- 
         }
     }
 

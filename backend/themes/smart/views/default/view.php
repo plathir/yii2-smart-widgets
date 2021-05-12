@@ -23,17 +23,17 @@ $this->params['breadcrumbs'][] = $this->title;
     </div><!-- /.box-header -->
     <div class="box-body">
         <p>
-            <?= Html::a('<i class="fa fa-fw fa-plus"></i> '.Yii::t('widgets', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<i class="fa fa-fw fa-edit"></i> '.Yii::t('widgets', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
             <?=
             Html::a('<i class="fa fa-fw fa-trash"></i> '.Yii::t('widgets', 'Delete'), ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
+                'class' => 'btn btn-danger btn-flat',
                 'data' => [
-                    'confirm' => Yii::t('widgets', 'Are you sure you want to delete this item?'),
+                    'confirm' => Yii::t('widgets', 'Are you sure you want to delete this item ?'),
                     'method' => 'post',
                 ],
             ]);
             ?>
-            <?= Html::a('<i class="glyphicon glyphicon-search"></i> '.Yii::t('widgets', 'Preview'), ['preview', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<i class="glyphicon glyphicon-search"></i> '.Yii::t('widgets', 'Preview'), ['preview', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
         </p>
 
         <?=

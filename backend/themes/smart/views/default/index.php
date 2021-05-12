@@ -50,11 +50,11 @@ $items_backend = [];
                                 'attribute' => 'name',
                                 'value' => function($model) {
                                     return '<strong>' . $model->name .
-                                            '</strong>' . '<br><i><u>Type</u> : ' .
+                                            '</strong>' . '<br><i><u>'. \Yii::t('widgets','Type').'</u> : ' .
                                             '<span class="text-green">' . $model->widgetref->tech_name . '</span> - ' .
                                             $model->widgetref->widget_name .
 //                                            '<br><u>class</u> :'. $model->widgetref->widget_class. '</i>';
-                                            '<br><u>class</u> : <span class="text-red">' . $model->widgetref->widget_class . '</span></i>';
+                                            '<br><u>'.Yii::t('widgets','Class').'</u> : <span class="text-red">' . $model->widgetref->widget_class . '</span></i>';
                                 },
                                 'format' => 'raw',
                             ],

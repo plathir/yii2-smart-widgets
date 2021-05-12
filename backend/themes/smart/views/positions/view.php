@@ -25,10 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div><!-- /.box-header -->
     <div class="box-body">
         <p>
-            <?= Html::a(Yii::t('widgets', 'Update'), ['update', 'tech_name' => $model->tech_name], ['class' => 'btn btn-primary btn-flat']) ?>
+            <?= Html::a('<i class="fa fa-fw fa-edit"></i> '.Yii::t('widgets', 'Update'), ['update', 'tech_name' => $model->tech_name], ['class' => 'btn btn-primary btn-flat']) ?>
 
             <?=
-            Html::a(Yii::t('widgets', 'Delete'), ['delete', 'tech_name' => $model->tech_name], [
+            Html::a('<i class="fa fa-fw fa-trash"></i> '.Yii::t('widgets', 'Delete'), ['delete', 'tech_name' => $model->tech_name], [
                 'class' => 'btn btn-danger btn-flat',
                 'data' => [
                     'confirm' => Yii::t('widgets', 'Are you sure you want to delete this item ?'),
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]);
             ?>
-            <?= Html::a(Yii::t('widgets', 'Sort Order'), ['/widgets/positions_sorder/update', 'tech_name' => $model->tech_name], ['class' => 'btn btn-primary btn-flat']) ?>
+            <?= Html::a('<i class="fa fa-fw fa-list-ol"></i>'.Yii::t('widgets', 'Sort Order'), ['/widgets/positions_sorder/update', 'tech_name' => $model->tech_name], ['class' => 'btn btn-primary btn-flat']) ?>
         </p>
 
         <?=

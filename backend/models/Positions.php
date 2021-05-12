@@ -26,7 +26,7 @@ class Positions extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'tech_name' => Yii::t('widgets', 'Position Technical Name'),
-            'name' => Yii::t('widgets', 'Name'),
+            'name' => Yii::t('widgets', 'Position Name'),
             'publish' => Yii::t('widgets', 'Publish'),
             'environment' => Yii::t('widgets', 'Environment'),
             'module_name' => Yii::t('widgets', 'Module Name'),
